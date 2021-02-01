@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SeatReservation</string>
+    <string name="ad_img_desc">广告图</string>
+    <string name="logo_img_desc">logo图</string>
+    <string name="navigation_menu_home_label">首页</string>
+    <string name="navigation_menu_seat_label">座位</string>
+    <string name="navigation_menu_mine_label">我的</string>
+</resources>

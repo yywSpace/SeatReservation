@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:paddingBottom="20dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scene_x_label" />
+
+            <TextView
+                android:id="@+id/shape_x_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="300.4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/scene_y_label" />
+
+            <TextView
+                android:id="@+id/shape_y_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="300.4" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/shape_seek_bar_reset"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/ic_reset" />
+    </FrameLayout>
+
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/shape_x_seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:max="200"
+        android:progress="100" />
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/shape_y_seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:max="200"
+        android:progress="100" />
+</LinearLayout>

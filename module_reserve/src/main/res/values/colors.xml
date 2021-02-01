@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="reserveColorPrimary">#6200EE</color>
+    <color name="reserveColorPrimaryDark">#3700B3</color>
+    <color name="reserveColorAccent">#03DAC5</color>
+    <color name="reserveLightGray">#f2f2f2</color>
+    <color name="reserveLightBlue">#ff33b5e5</color>
+</resources>

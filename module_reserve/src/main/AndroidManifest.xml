@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yywspace.module_reserve">
+
+    <application android:allowBackup="true">
+        <activity android:name=".activity.ReserveActivity" />
+        <activity android:name=".activity.OrganizationDetailActivity" android:theme="@style/ReserveAppTheme" />
+        <activity
+            android:name=".activity.CitySelectActivity"
+            android:theme="@style/ReserveAppTheme"
+            android:parentActivityName=".activity.ReserveActivity" />
+
+        <activity
+            android:name=".activity.RoomListActivity"
+            android:theme="@style/ReserveAppTheme"
+            android:parentActivityName=".activity.OrganizationDetailActivity"/>
+        <activity
+            android:name=".activity.RoomDetailActivity"
+            android:theme="@style/ReserveAppTheme"/>
+    </application>
+
+</manifest>

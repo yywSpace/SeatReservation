@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mineColorPrimary">#6200EE</color>
+    <color name="mineColorPrimaryDark">#3700B3</color>
+    <color name="mineColorAccent">#03DAC5</color>
+    <color name="mineUserInfoBg">#58a4fa</color>
+</resources>

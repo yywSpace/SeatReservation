@@ -1,0 +1,11 @@
+<resources>
+    <string name="login_app_name">登录</string>
+    <string name="login_password_field_hint">密码</string>
+    <string name="login_username_field_hint">用户名</string>
+    <string name="login_logo_desc">登录图标</string>
+    <string name="login_button_text">登录</string>
+    <string name="login_register_text">注册</string>
+    <string name="login_register_title">新用户注册</string>
+    <string name="login_title">帐号密码登录</string>
+    <string name="login_re_password_hint">请再次输入密码</string>
+</resources>

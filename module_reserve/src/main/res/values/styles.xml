@@ -1,0 +1,10 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="ReserveAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="colorPrimary">@color/reserveColorPrimary</item>
+<!--        <item name="colorPrimary">#fafafa</item>-->
+        <item name="colorPrimaryDark">@color/reserveColorPrimaryDark</item>
+        <item name="colorAccent">@color/reserveColorAccent</item>
+    </style>
+</resources>

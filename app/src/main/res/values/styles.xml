@@ -1,0 +1,30 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- 去除Activity顶部黑线 -->
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- Activity背景 -->
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="splashScreenTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- 去除Activity顶部黑线 -->
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- Activity背景 -->
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+</resources>

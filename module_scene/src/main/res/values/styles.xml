@@ -1,0 +1,18 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="SceneAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+<!--        <item name="android:windowActivityTransitions">true</item>-->
+
+<!--        <item name="colorPrimary">#fafafa</item>-->
+        <item name="colorPrimary">@color/sceneColorPrimary</item>
+        <item name="colorPrimaryDark">@color/sceneColorPrimaryDark</item>
+        <item name="colorAccent">@color/sceneColorAccent</item>
+    </style>
+
+    <style name="SceneBottomAnimStyle">
+        <item name="android:windowEnterAnimation">@anim/scene_bottom_pop_show</item>
+        <!-- 指定显示的动画xml -->
+        <item name="android:windowExitAnimation">@anim/scene_bottom_pop_hide</item>
+        <!-- 指定消失的动画xml -->
+    </style>
+</resources>

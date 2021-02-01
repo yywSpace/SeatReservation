@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.yywspace.module_reserve">
+
+    <application
+        android:name=".AppReserve"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/reserve_app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/ReserveAppTheme">
+        <activity android:name=".activity.ReserveActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.CitySelectActivity"
+            android:parentActivityName=".activity.ReserveActivity">
+
+        </activity>
+        <activity
+            android:name=".activity.OrganizationDetailActivity"
+            android:parentActivityName=".activity.ReserveActivity"/>
+
+        <activity
+            android:name=".activity.RoomListActivity"
+            android:parentActivityName=".activity.OrganizationDetailActivity"/>
+        <activity
+            android:name=".activity.RoomDetailActivity"
+         />
+    </application>
+
+</manifest>

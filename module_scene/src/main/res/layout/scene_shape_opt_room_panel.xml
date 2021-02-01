@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/shape_opt_panel"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_gravity="bottom"
+    android:background="@drawable/scene_border"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/shape_lock"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/ic_opt_lock" />
+
+    <ImageView
+        android:id="@+id/shape_size_adjust"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/ic_measure" />
+
+    <ImageView
+        android:id="@+id/shape_location_adjust"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/ic_move" />
+
+
+    <ImageView
+        android:id="@+id/shape_color_pick"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/ic_color" />
+
+    <ImageView
+        android:id="@+id/shape_alpha_adjust"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/ic_alptha" />
+
+    <ImageView
+        android:id="@+id/shape_detail"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/ic_info_detail" />
+
+    <ImageView
+        android:id="@+id/shape_delete"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/ic_delete" />
+
+    <ImageView
+        android:id="@+id/shape_copy"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/ic_copy" />
+</LinearLayout>
+
+

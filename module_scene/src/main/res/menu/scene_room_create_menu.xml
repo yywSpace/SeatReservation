@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/scene_preview"
+        android:icon="@drawable/ic_preview"
+        android:title="@string/scene_menu_preview_label"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/scene_edit"
+        android:icon="@drawable/ic_edit"
+        android:title="@string/scene_menu_edit_label"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/scene_add"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_add_small"
+        android:title="@string/scene_menu_add_room_label" />
+
+    <item
+        android:id="@+id/scene_replace_background"
+        android:title="@string/scene_menu_replace_bg_label" />
+
+    <item
+        android:id="@+id/scene_clear"
+        android:title="@string/scene_menu_clear_label" />
+    <item
+        android:id="@+id/scene_bottom_opt_panel"
+        android:title="@string/scene_menu_bottom_opt_panel" />
+
+</menu>

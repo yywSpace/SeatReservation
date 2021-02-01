@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="5dp"
+    app:cardCornerRadius="15dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.howshea.roundcornerimageview.RoundCornerImageView
+            android:id="@+id/organization_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_bg"
+            android:transitionName="@string/reserve_organization_transition_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:radius="10dp" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="22sp"
+            app:layout_constraintStart_toEndOf="@+id/organization_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="河南大学图书馆" />
+
+        <ImageView
+            android:id="@+id/reserve_location_icon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/reserve_location_icon_dec"
+            app:layout_constraintStart_toEndOf="@+id/organization_image"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:srcCompat="@drawable/ic_location" />
+
+        <ImageView
+            android:id="@+id/reserve_person_num_icon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:contentDescription="@string/reserve_person_count_icon_desc"
+            app:layout_constraintStart_toEndOf="@+id/organization_image"
+            app:layout_constraintTop_toBottomOf="@+id/reserve_location_icon"
+            app:srcCompat="@drawable/ic_person_count" />
+
+        <TextView
+            android:id="@+id/reserve_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/reserve_location_icon"
+            app:layout_constraintStart_toEndOf="@+id/reserve_location_icon"
+            app:layout_constraintTop_toTopOf="@+id/reserve_location_icon"
+            app:layout_constraintVertical_bias="0.333"
+            tools:text="河南大学-金明小区" />
+
+        <TextView
+            android:id="@+id/reserve_person_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/reserve_person_num_icon"
+            app:layout_constraintStart_toEndOf="@+id/reserve_person_num_icon"
+            app:layout_constraintTop_toTopOf="@+id/reserve_person_num_icon"
+            tools:text="99/100" />
+
+        <ImageButton
+            android:id="@+id/reserve_collect"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/ic_collect"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/reserve_collect_icon_desc" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

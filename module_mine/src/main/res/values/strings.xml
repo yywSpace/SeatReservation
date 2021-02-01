@@ -1,0 +1,9 @@
+<resources>
+    <string name="mine_app_name">个人中心</string>
+    <string name="mine_user_desc_default">这个人很懒，什么也没有留下</string>
+    <string name="mine_user_name_not_login">点击登录</string>
+    <string name="mine_user_desc_not_login">登录后体验全部功能</string>
+    <string name="mine_reservation_rule">预约规则</string>
+    <string name="mine_sex_man">男</string>
+    <string name="mine_sex_woman">女</string>
+</resources>

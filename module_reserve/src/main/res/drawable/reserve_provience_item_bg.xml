@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--radius top_left,top_right-->
+    <!--shadow top,left,right-->
+    <!--从外到内，层层递进-->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/reserveLightBlue" />
+        </shape>
+    </item>
+
+    <item android:left="5dp">
+        <shape android:shape="rectangle">
+            <solid android:color="?android:colorBackground" />
+        </shape>
+    </item>
+</layer-list>
+

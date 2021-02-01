@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/filter"
+        android:title="@string/reserve_menu_filter_label">
+        <menu>
+            <group
+                android:id="@+id/filter_group"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/filter_none"
+                    android:checked="true"
+                    android:title="@string/reserve_menu_seat_none_label" />
+                <item
+                    android:id="@+id/filter_busy"
+                    android:title="@string/reserve_menu_seat_busy_label" />
+                <item
+                    android:id="@+id/filter_empty"
+                    android:title="@string/reserve_menu_seat_empty_label" />
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/reserve_menu_search_label"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
+
+</menu>

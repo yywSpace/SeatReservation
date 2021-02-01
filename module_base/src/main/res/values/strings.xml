@@ -1,0 +1,10 @@
+<resources>
+    <string name="base_to_feedback">feedback</string>
+    <string name="base_to_login">login</string>
+    <string name="base_to_mine">mine</string>
+    <string name="base_to_reserve">reserve</string>
+    <string name="base_to_scene">scene</string>
+    <string name="base_to_setting">setting</string>
+    <string name="base_dialog_confirm">确认</string>
+    <string name="base_dialog_cancel">取消</string>
+</resources>

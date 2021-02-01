@@ -1,0 +1,11 @@
+include ':module_home'
+include ':module_base'
+include ':module_feedback'
+include ':module_setting'
+include ':module_scene'
+include ':module_reserve'
+include ':module_mine'
+include ':module_login'
+include ':baseLibrary'
+include ':app'
+rootProject.name = "SeatReservation"
