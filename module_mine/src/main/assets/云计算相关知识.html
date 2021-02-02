@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>云计算相关知识</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="file:////home/zhy/.atom/packages/markdown-preview-enhanced/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+
+    <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+
+
+    </style>
+</head>
+<body for="html-export">
+<div class="mume markdown-preview  ">
+    <h1 class="mume-header" id="%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86">
+        云计算相关知识</h1>
+
+    <ul>
+        <li>
+            <p>
+                <a href="https://weread.qq.com/web/appreader/eb432a1059346feb43178b3k3c5327902153c59dc0488e1?wtheme=white&amp;wfrom=app&amp;wvid=67224330&amp;scene=bottomSheetShare">Linux
+                    内核设计的艺术</a></p>
+        </li>
+        <li>
+            <p><a href="https://blog.csdn.net/Jmilk/article/details/51031118">虚拟化发展历程</a></p>
+        </li>
+        <li>
+            <p><a href="https://cloud.tencent.com/developer/article/1744761">计算机简史</a></p>
+        </li>
+        <li>
+            <p>
+                <a href="pdf/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%8F%91%E5%B1%95%E7%99%BD%E7%9A%AE%E4%B9%A6.pdf">工信部的云计算技术发展白皮书</a>
+            </p>
+        </li>
+        <li>
+            <p>
+                <a href="pdf/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8F%91%E5%B1%95%E7%99%BD%E7%9A%AE%E4%B9%A6.pdf">工信部的云原生技术发展白皮书</a>
+            </p>
+        </li>
+        <li>
+            <p>
+                <a href="https://mp.weixin.qq.com/s?__biz=MzU1NzQ0NjQ3NA==&amp;mid=2247486547&amp;idx=1&amp;sn=4509b39a753d30201bf29c048ec1c1b7&amp;chksm=fc34e876cb436160840af4f16f0edfc36e128419280baefa557651711c89b169757895f51595&amp;mpshare=1&amp;scene=1&amp;srcid=0127lmQkGAdWxnwTR8n6mCDv&amp;sharer_sharetime=1611715663920&amp;sharer_shareid=c48d0f1c6a794b5d244ebaee0c088949&amp;exportkey=AxhRSdV4TYAiRbDhbfUb730%3D&amp;pass_ticket=Ao%2FELYBAxgn%2BSy9rQYWDqebtvnxNZ%2FYi5sTPMGBMcEx2xxO%2BRAncD%2FrgXFSKInbI&amp;wx_header=0#rd">容器存储需求分析和方案选型</a><br>
+                让数据运转起来，不用都存储于磁盘，或者在容器云平台可以采用这种思想，把数据从容器中抛出来，然后再进一步处理或存储。<br>
+                容器云平台存储不仅仅是数据的持久化存储，也包括容器云平台自身的存储需求以及镜像存储需求，甚至需要考虑云上中间件。<br>
+                上次时速云讲的容器内业务日志持久化就是通过挂载NFS盘的方式转存出来，实现日志持久化的</p>
+        </li>
+        <li>
+            <p><a href="pdf/%E5%A4%A7%E8%AF%9D%E4%BA%91%E8%AE%A1%E7%AE%97.pdf">大话云计算</a><br>
+                大话云计算里面讲了一些云计算的基础理论和应用实践 写的比较早 可以先看看入门</p>
+        </li>
+        <li>
+            <p><a href="pdf/OpenStack_Nova_Swift_Quantum%CE%B4Hadoop_2014_8.pdf">OpenStack</a><br>
+                OpenStack是目前开源云计算最主流的架构 也可以了解一下，目前国内绝大部分厂商，都是基于开源OpenStack做的云计算平台</p>
+        </li>
+        <li>
+            <p><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/">redhat7系列文档</a><br>
+                看linux的话，可以先不看内核，因为国内大部分都是用的CentOS，可以先看看红帽的产品文档</p>
+        </li>
+        <li>
+            <p>
+                <a href="https://mp.weixin.qq.com/s?__biz=MzIzNzU5NTYzMA==&amp;mid=2247491619&amp;idx=1&amp;sn=a13d9d7bf9b310368ef623ff772c94c2&amp;chksm=e8c49ea2dfb317b47d90b6c7f15efec7781218262181b7219ae68c2c5062d1a369e4a458c3d1&amp;mpshare=1&amp;scene=23&amp;srcid=0128nedhByASwJ2FyM8ruy41&amp;sharer_sharetime=1611798175884&amp;sharer_shareid=ae7b2cff440593244fabb6a3e909ad01#rd">Kubernetes
+                    原生 CI/CD 构建框架 Tekton 详解！ </a></p>
+        </li>
+        <li>
+            <p>
+                <a href="https://mp.weixin.qq.com/s?__biz=MzI5ODk5ODI4Nw==&amp;mid=2247498073&amp;idx=2&amp;sn=6050b51079e4a6700ceeb93faf68ac84&amp;chksm=ec9ff639dbe87f2f2790885d7039273967427daa0b30e7746798e4efc10ea84aa92fa6757cc5&amp;mpshare=1&amp;scene=1&amp;srcid=01280Y12VY7ze6TWZay6oDlM&amp;sharer_sharetime=1611845686467&amp;sharer_shareid=c48d0f1c6a794b5d244ebaee0c088949&amp;exportkey=A7svMFF8c7uDYnbeRGtYrxQ%3D&amp;pass_ticket=d3Z81%2FNFcj%2FeqNsYyZF3VzYtUqhk%2FUnodkzDGegA6D85LrmrW9jvrqwcUTKg8AUn&amp;wx_header=0#rd">灵雀云Kube-OVN进入CNCF沙箱，成为CNCF首个容器网络项目</a>
+            </p>
+        </li>
+        <li>
+            <p>
+                <a href="https://mp.weixin.qq.com/s?__biz=MzU0NDEyODkzMQ==&amp;mid=2247507543&amp;idx=1&amp;sn=ae3eb9bfe41851c37ba045aba433a1b6&amp;chksm=fb02749bcc75fd8d7d38fe080764b27a711c13e258fe9547a9f64207050afb97cdcdfb737a84&amp;mpshare=1&amp;scene=1&amp;srcid=0128OcAwEakPX0DVsbc9V5NY&amp;sharer_sharetime=1611847832171&amp;sharer_shareid=c48d0f1c6a794b5d244ebaee0c088949&amp;exportkey=AwFrTNvkO40uFiHOBfKk0Ik%3D&amp;pass_ticket=d3Z81%2FNFcj%2FeqNsYyZF3VzYtUqhk%2FUnodkzDGegA6D85LrmrW9jvrqwcUTKg8AUn&amp;wx_header=0#rd">一文读懂云上DevOps能力体系</a>
+            </p>
+        </li>
+        <li>
+            <p>
+                <a href="https://mp.weixin.qq.com/s?__biz=MzI5ODQ2MzI3NQ==&amp;mid=2247496796&amp;idx=2&amp;sn=32d675f4aa2524341c2183ea9708f3b3&amp;chksm=eca7cd18dbd0440e9608362a3c700edfccfac78dc3eaa3c664a2f54f9dfd2a523d927a5107a8&amp;mpshare=1&amp;scene=1&amp;srcid=0130vPKE0E0s0MYHhHH7L8Xu&amp;sharer_sharetime=1611988278532&amp;sharer_shareid=4174ce67aeef7276f4f6685da74c8980&amp;exportkey=A%2BIBke%2B6n0FtN%2BZ%2Bxu8wgxY%3D&amp;pass_ticket=XKUaGK89g97VRNXcngoH2%2BL3uEkPZHqzyAA%2FZ%2FuQANkVT%2F3NmCLAX4vysiGjHjeh&amp;wx_header=0#rd">Kubernetes
+                    原生 CI/CD 构建框架 Argo 详解！</a></p>
+        </li>
+        <li>
+            <p>
+                <a href="https://mp.weixin.qq.com/s?__biz=MzAwNTM5Njk3Mw==&amp;mid=2247496877&amp;idx=1&amp;sn=62418d9784e1b87923105c4e6444e68b&amp;chksm=9b1ff42fac687d396a553b4e89fec78d9dfc3e57a70509058ce0e8449a9f9a570b1cabf1d09b&amp;mpshare=1&amp;scene=1&amp;srcid=0201hrirfBYPq7rr3rUv931D&amp;sharer_sharetime=1612155389869&amp;sharer_shareid=4174ce67aeef7276f4f6685da74c8980&amp;exportkey=A4MU1TvHc8I2ZpFGCPWA9aY%3D&amp;pass_ticket=XKUaGK89g97VRNXcngoH2%2BL3uEkPZHqzyAA%2FZ%2FuQANkVT%2F3NmCLAX4vysiGjHjeh&amp;wx_header=0#rd">https://mp.weixin.qq.com/s?__biz=MzAwNTM5Njk3Mw==&amp;mid=2247496877&amp;idx=1&amp;sn=62418d9784e1b87923105c4e6444e68b&amp;chksm=9b1ff42fac687d396a553b4e89fec78d9dfc3e57a70509058ce0e8449a9f9a570b1cabf1d09b&amp;mpshare=1&amp;scene=1&amp;srcid=0201hrirfBYPq7rr3rUv931D&amp;sharer_sharetime=1612155389869&amp;sharer_shareid=4174ce67aeef7276f4f6685da74c8980&amp;exportkey=A4MU1TvHc8I2ZpFGCPWA9aY%3D&amp;pass_ticket=XKUaGK89g97VRNXcngoH2%2BL3uEkPZHqzyAA%2FZ%2FuQANkVT%2F3NmCLAX4vysiGjHjeh&amp;wx_header=0#rd</a>
+            </p>
+        </li>
+    </ul>
+    <h1 class="mume-header" id="%E5%A4%9A%E4%BA%91%E7%BB%9F%E7%AE%A1">多云统管</h1>
+
+    <h2 class="mume-header" id="%E7%AE%80%E4%BB%8B">简介</h2>
+
+    <p>通过对各云厂商云管平台所提供的接口进行统一管理，提供一套统一的云资源管理平台，其部分功能主要如下：</p>
+    <ol>
+        <li>资源管理</li>
+        <li>工单管理</li>
+        <li>运营管理</li>
+    </ol>
+    <h2 class="mume-header" id="%E8%A6%81%E7%82%B9">要点</h2>
+
+    <ol>
+        <li>
+            <p>基于对云管平台接口进行管理的方式所提供的多云统管的实现方法，简单快捷但其功能只局限于各云厂商云管平台所提供功能，无法满足定制化功能需要，或进行定制化功能难度大。</p>
+        </li>
+        <li>
+            <p>多云统管下跨资源池调度问题。例如：所部署应用跨资源池的迁移，跨资源池多活的实现。</p>
+        </li>
+        <li>
+            <p>定义第三方标准，对所调用各云平台接口进行规范，消除不同厂商差异。</p>
+        </li>
+        <li>
+            <p>在不考虑各云平台厂商资源开放程度的情况下，寻求一种能够直接渗透到各厂商虚拟机实例中进行资源管理或者信息收集的方式。</p>
+        </li>
+        <li>
+            <p>提供统一的安全策略，并列出清单。例：哪些端口可开，哪些需关。哪些应用可以安装，哪些不能。</p>
+        </li>
+        <li>
+            <p>云外服务资源的管理方式：先在线下对资源进行操作，后人工录入到系统中去。</p>
+        </li>
+        <li>
+            <p>省市两级的云资源管理架构应如何实现。</p>
+        </li>
+        <li>
+            <p>政务云的特殊性：国产化，不能局限于单一云厂商提供的服务</p>
+        </li>
+        <li>
+            <p>资源的分配方式，单节点分配，多节点分配，多节点分配时的资源分配策略：先选节点后分配</p>
+        </li>
+        <li>
+            <p>各地市在申请云资源时，为保证所申请资源量满足自身需求，会进行超额申请，造成资源的大量浪费，如何规避或优化</p>
+        </li>
+    </ol>
+    <h2 class="mume-header" id="devops">DevOps</h2>
+
+    <h3 class="mume-header" id="-ledge-httpsdevopsphodalcom"><a href="https://devops.phodal.com/">-
+        LEDGE -</a></h3>
+
+    <h3 class="mume-header" id="%E5%AF%B9%E6%AF%94%E6%96%87%E6%A1%A3">对比文档</h3>
+
+    <ul>
+        <li><a href="https://docs.qq.com/sheet/DV2hEUUxoekVYRkln">DevOps平台对比表</a></li>
+    </ul>
+    <h3 class="mume-header" id="%E5%BC%80%E6%BA%90">开源</h3>
+
+    <ul>
+        <li>
+            <p><a href="https://github.com/theonedev/onedev">onedev</a></p>
+            <ul>
+                <li>
+                    <a href="https://code.onedev.io/projects/onedev-manual/blob/main/pages/run-on-bare-metal-machine.md">run-on-bare-metal-machine</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <p><a href="https://www.oschina.net/question/2012764_246208">DevOps 开源工具</a></p>
+        </li>
+        <li>
+            <p><a href="https://www.oschina.net/p/opendevops">CloudOpenDevOps 开源平台</a></p>
+        </li>
+        <li>
+            <p><a href="https://www.oschina.net/p/rainbond">好雨</a></p>
+            <ul>
+                <li>和onedeps类似</li>
+                <li>设计理念<br>
+                    <img src="img/%E5%A5%BD%E9%9B%A8%E8%AE%BE%E8%AE%A1%E7%90%86%E5%BF%B5.jpg"
+                         alt="设计理念"></li>
+                <li>已经支持国产操作系统了</li>
+                <li>公司的<a href="https://www.goodrain.com">官网</a></li>
+            </ul>
+        </li>
+    </ul>
+    <h3 class="mume-header" id="%E8%93%9D%E9%B2%B8%E5%B9%B3%E5%8F%B0">蓝鲸平台</h3>
+
+    <ol>
+        <li>
+            <p>帐号<br>
+                ZSKJ_a4/ZSKJ_a400<br>
+                ZSKJ_a5/ZSKJ_a500<br>
+                ZSKJ_a6/ZSKJ_a600</p>
+        </li>
+        <li>
+            <p>平台登录地址：<br>
+                蓝鲸平台地址：<a href="http://paas.bkdo.net">http://paas.bkdo.net</a><br>
+                目前看里面包含了4个平台</p>
+            <ul>
+                <li>配置平台：CMDB；</li>
+                <li>作业平台：流水线；</li>
+                <li>蓝盾：devops项目管理，包含协作、开发、测试、部署、运营等功能。</li>
+                <li>蓝鲸监控：蓝鲸的监控服务。</li>
+            </ul>
+        </li>
+        <li>
+            <p><a href="https://cloud.tencent.com/developer/article/1375793">蓝鲸DevOps深度解析系列（1）：蓝盾平台总览</a>
+            </p>
+        </li>
+        <li>
+            <p><a href="https://cloud.tencent.com/developer/article/1404013">蓝鲸DevOps深度解析系列（2）：蓝盾流水线初体验</a>
+            </p>
+        </li>
+        <li>
+            <p>
+                <a href="http://devops.bkdo.net/docs/#%E4%BB%A3%E7%A0%81%E6%A3%80%E6%9F%A5/%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D">蓝鲸DevOps平台文档</a>
+            </p>
+        </li>
+    </ol>
+    <h4 class="mume-header" id="%E6%B5%8B%E8%AF%95">测试</h4>
+
+    <ul>
+        <li>锋测(接口测试,人工测试,UI测试,性能测试,测试计划)</li>
+        <li>质量红线(红线规则，红线记录，招标列表)</li>
+        <li>Mock服务(Mock接口，节点管理)</li>
+        <li>数据工厂(任务中心，数据管理)</li>
+    </ul>
+    <h3 class="mume-header" id="%E4%BA%91%E6%95%88">云效</h3>
+
+    <h3 class="mume-header" id="%E6%97%A7%E7%89%88">旧版</h3>
+
+    <ol>
+        <li><a href="http://devops.yunxiaodemo.com">云效访问地址</a></li>
+        <li>[账号信息]<br>
+            账号: henanzhengshu1, 密码: Yun#xia0<br>
+            ﻿账号: henanzhengshu2, 密码: Yun#xia0<br>
+            账号: henanzhengshu3, 密码: Yun#xia0<br>
+            账号: henanzhengshu4, 密码: Yun#xia0<br>
+            账号: henanzhengshu5, 密码: Yun#xia0
+        </li>
+    </ol>
+    <h3 class="mume-header" id="%E6%96%B0%E7%89%88">新版</h3>
+
+    <ol>
+        <li>
+            <p><a href="https://signin.aliyun.com/1262312143869399.onaliyun.com/login.htm">登录链接</a>
+            </p>
+        </li>
+        <li>
+            <p><a href="https://devops.console.aliyun.com/organizations">登录后访问链接</a></p>
+        </li>
+        <li>
+            <p>帐号密码</p>
+            <ul>
+                <li><a href="mailto:zhengheyan@1262312143869399.onaliyun.com">zhengheyan@1262312143869399.onaliyun.com</a>
+                </li>
+                <li>zhengshu@123</li>
+            </ul>
+        </li>
+        <li>
+            <p><a href="http://devops.yunxiaodemo.com/doc/">帮助文档</a></p>
+        </li>
+        <li>
+            <p><a href="http://devops.yunxiaodemo.com/doc/help/quickstart/quickstart.html">快速入门</a>
+            </p>
+        </li>
+    </ol>
+    <h3 class="mume-header" id="%E5%8D%8E%E4%B8%BA%E4%BA%91">华为云</h3>
+
+    <h4 class="mume-header" id="%E6%93%8D%E4%BD%9C">操作</h4>
+
+    <ol>
+        <li><a href="https://auth.huaweicloud.com/authui/login?id=yanjingchun">登录</a></li>
+        <li><a href="https://devcloud.cn-east-3.huaweicloud.com/home">控制台</a></li>
+    </ol>
+    <h4 class="mume-header" id="%E5%B8%90%E5%8F%B7">帐号</h4>
+
+    <ul>
+        <li>用户名：zhengheyan</li>
+        <li>密码：zhyPhone</li>
+    </ul>
+    <p>devops<br>
+        功能对比，<br>
+        各个厂商 代码托管，编译构建（支持语言）测试，不同点，易用度<br>
+        新建分支，上传</p>
+
+</div>
+</body>
+</html>
