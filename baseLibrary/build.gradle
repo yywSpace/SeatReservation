@@ -54,6 +54,10 @@ dependencies {
 
     api 'com.android.support:multidex:1.0.3'
 
+    // 图片选择
+    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0'
+    api 'com.github.bumptech.glide:glide:4.12.0'
+
     // 弹窗
     api 'com.afollestad.material-dialogs:core:3.3.0'
     api 'com.afollestad.material-dialogs:color:3.2.1'

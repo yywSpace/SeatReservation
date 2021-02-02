@@ -13,5 +13,4 @@ class UserInfItemListAdapter : BaseQuickAdapter<UserInfoItem, BaseViewHolder>(R.
         holder.setImageResource(R.id.mine_item_icon, item.iconResource)
         holder.setText(R.id.mine_item_name, item.name)
     }
-
 }

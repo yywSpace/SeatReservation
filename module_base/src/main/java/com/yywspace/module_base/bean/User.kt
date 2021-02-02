@@ -9,7 +9,8 @@ data class User(var id: Int? = 0,
                 var message: String? = null,
                 var sex: Int? = null,
                 var password: String? = null,
-                var isAdmin: Boolean = false) : Parcelable {
+                var isAdmin: Boolean = false,
+                var avatar: String? = null) : Parcelable {
 
 
     constructor(username: String?, message: String?, sex: Int?) : this() {

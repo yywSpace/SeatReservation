@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.yywspace.module_mine">
 
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".AppMine"
         android:allowBackup="true"
@@ -23,9 +30,18 @@
         </activity>
 
         <activity
-            android:name=".user.InfoDetailActivity"
-            android:theme="@style/MineAppTheme"
-            android:parentActivityName=".user.MineActivity"/>
+            android:name=".user.UserInfoDetailActivity"
+            android:parentActivityName=".user.MineActivity"
+            android:theme="@style/MineAppTheme" />
+        <activity
+            android:name=".user.ReservationRuleActivity"
+            android:parentActivityName=".user.MineActivity"
+            android:theme="@style/MineAppTheme" />
+
+        <activity
+            android:name=".user.UserInfoReservationListActivity"
+            android:parentActivityName=".user.MineActivity"
+            android:theme="@style/MineAppTheme" />
     </application>
 
 </manifest>
