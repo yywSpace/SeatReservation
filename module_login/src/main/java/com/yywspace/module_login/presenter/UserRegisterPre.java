@@ -1,14 +1,11 @@
 package com.yywspace.module_login.presenter;
 
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 
-import com.yywspace.module_base.base.BaseResponse;
 import com.yywspace.module_base.bean.User;
 import com.yywspace.module_base.net.ServerUtils;
 import com.yywspace.module_base.net.crypto.MD5Util;
-import com.yywspace.module_base.util.JsonUtil;
-import com.yywspace.module_base.util.LogUtils;
+import com.yywspace.module_base.util.JsonUtils;
 import com.yywspace.module_login.emum.LoginInput;
 
 import okhttp3.MediaType;
@@ -32,7 +29,7 @@ public class UserRegisterPre extends LoginPresenter.UserRegisterPresenter {
             return;
         }
         user.setPassword(MD5Util.encrypt(user.getPassword()));
-        RequestBody body = RequestBody.create(JsonUtil.getGson().toJson(user), MediaType.parse("application/json; charset=utf-8"));
+        RequestBody body = RequestBody.create(JsonUtils.getGson().toJson(user), MediaType.parse("application/json; charset=utf-8"));
         ServerUtils.getCommonApi().register(body).observe(owner, userBaseResponse -> {
             User retUser = getView().getRegisterUser();
             if (userBaseResponse.getCode() == 1)

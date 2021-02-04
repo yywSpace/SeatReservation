@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/filter"
-        android:title="@string/reserve_menu_filter_label">
+        android:title="@string/base_menu_filter_label">
         <menu>
             <group
                 android:id="@+id/filter_group"

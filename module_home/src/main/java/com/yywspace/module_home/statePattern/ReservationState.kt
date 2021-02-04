@@ -20,7 +20,7 @@ import com.yywspace.module_home.view.TimerView
 class ReservationState : IReservationState() {
     override fun handleView(binding: HomeFragmentMainBinding, inflater: LayoutInflater, reservationView: IReservationView, context: Context) {
         // TODO: 20-11-20 通过网络读取
-        val reservation = Reservation(1000, "河南大学", "20-12");
+        val reservation = Reservation(1000, 1000, "河南大学", "20-12", 1);
         val titleAnimation: Animation = AnimationUtils.loadAnimation(context, R.anim.home_title_anim)
 
         binding.homeReservationStatus.apply {

@@ -1,4 +1,4 @@
-package com.yywspace.module_mine.user
+package com.yywspace.module_mine.user.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

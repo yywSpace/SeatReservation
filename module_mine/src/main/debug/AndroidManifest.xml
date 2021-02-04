@@ -20,7 +20,7 @@
         android:theme="@style/MineAppTheme"
         tools:replace="android:icon">
         <activity
-            android:name=".user.MineActivity"
+            android:name=".user.activity.MineActivity"
             android:theme="@style/MineAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,17 +30,27 @@
         </activity>
 
         <activity
-            android:name=".user.UserInfoDetailActivity"
-            android:parentActivityName=".user.MineActivity"
+            android:name=".user.activity.UserInfoDetailActivity"
+            android:parentActivityName=".user.activity.MineActivity"
             android:theme="@style/MineAppTheme" />
         <activity
-            android:name=".user.ReservationRuleActivity"
-            android:parentActivityName=".user.MineActivity"
+            android:name=".user.activity.ReservationRuleActivity"
+            android:parentActivityName=".user.activity.MineActivity"
             android:theme="@style/MineAppTheme" />
 
         <activity
-            android:name=".user.UserInfoReservationListActivity"
-            android:parentActivityName=".user.MineActivity"
+            android:name=".user.activity.UserInfoReservationListActivity"
+            android:parentActivityName=".user.activity.MineActivity"
+            android:theme="@style/MineAppTheme" />
+
+        <activity
+            android:name=".user.activity.UserInfoStatisticAnalysisActivity"
+            android:parentActivityName=".user.activity.MineActivity"
+            android:theme="@style/MineAppTheme" />
+
+        <activity
+            android:name=".user.activity.UserInfoFavouriteOrgActivity"
+            android:parentActivityName=".user.activity.MineActivity"
             android:theme="@style/MineAppTheme" />
     </application>
 

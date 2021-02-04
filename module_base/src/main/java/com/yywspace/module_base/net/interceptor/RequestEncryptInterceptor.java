@@ -1,12 +1,9 @@
 package com.yywspace.module_base.net.interceptor;
 
-import android.util.Log;
-
 import com.yywspace.module_base.AppConfig;
-import com.yywspace.module_base.net.ServerUtils;
 import com.yywspace.module_base.net.crypto.AESUtil;
 import com.yywspace.module_base.net.crypto.RSAUtil;
-import com.yywspace.module_base.util.JsonUtil;
+import com.yywspace.module_base.util.JsonUtils;
 import com.yywspace.module_base.util.LogUtils;
 
 import org.jetbrains.annotations.NotNull;
@@ -104,8 +101,8 @@ public class RequestEncryptInterceptor implements Interceptor {
                     map.put("encryptAesData", encryptAesData);
                     map.put("timestamp", timestamp);
                     /*构建新的请求体*/
-                    RequestBody newRequestBody = RequestBody.create(JsonUtil.getGson().toJson(map), contentType);
-                    LogUtils.d(JsonUtil.getGson().toJson(map));
+                    RequestBody newRequestBody = RequestBody.create(JsonUtils.getGson().toJson(map), contentType);
+                    LogUtils.d(JsonUtils.getGson().toJson(map));
                     LogUtils.d(AESUtil.SECRET_KEY);
 
                     /*构建新的requestBuilder*/

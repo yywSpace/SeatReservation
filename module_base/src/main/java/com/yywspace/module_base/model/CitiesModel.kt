@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.reflect.TypeToken
 import com.yywspace.module_base.bean.area.Province
-import com.yywspace.module_base.util.JsonUtil
+import com.yywspace.module_base.util.JsonUtils
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -19,7 +19,7 @@ object CitiesModel {
             //通过管理器打开文件并读取
             val json = getJson("city.json", context);
             Log.d("TAG", "getCities: $json")
-            val provinceList: List<Province> = JsonUtil.getGson()
+            val provinceList: List<Province> = JsonUtils.getGson()
                     .fromJson(json,
                             object : TypeToken<List<Province>>() {}.type)
             liveData.value = provinceList;

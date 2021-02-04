@@ -34,7 +34,6 @@
     </string>
     <string name="reserve_expandable_img_btn_desc">可伸缩TextView ImageButton描述</string>
 
-    <string name="reserve_menu_filter_label">筛选</string>
     <string name="reserve_menu_seat_busy_label">繁忙</string>
     <string name="reserve_menu_seat_empty_label">空闲</string>
     <string name="reserve_menu_seat_none_label">全部</string>

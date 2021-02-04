@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="horizontal"
+    android:clickable="true"
+    android:background="@drawable/base_item_ripple_selector"
     android:paddingStart="20dp"
     android:paddingEnd="20dp">
 
@@ -20,9 +24,9 @@
             android:background="#999" />
 
         <TextView
-            android:id="@+id/tvDot"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:id="@+id/reservation_status_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_below="@id/tvTopLine"
             android:layout_centerHorizontal="true"
             android:background="@drawable/mine_time_line_dot_normal" />
@@ -30,7 +34,7 @@
         <TextView
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_below="@id/tvDot"
+            android:layout_below="@id/reservation_status_icon"
             android:layout_centerHorizontal="true"
             android:background="#999" />
     </RelativeLayout>
@@ -39,38 +43,105 @@
         android:id="@+id/rlCenter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="6dp"
-        android:paddingRight="10dp"
+        android:paddingStart="5dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="10dp"
         android:paddingBottom="6dp">
 
         <TextView
-            android:id="@+id/start_time"
+            android:id="@+id/reservation_start_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2014/06/24 20:55:28"
-            android:textColor="#999" />
+            android:textColor="#999"
+            tools:text="2014/06/24 20:55:28" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true">
+            android:layout_alignBottom="@+id/reservation_start_time"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            tools:ignore="RelativeOverlap,UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="@drawable/ic_sandglass"
+                tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/time_duration"
+                android:id="@+id/reservation_time_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20"
-                android:textColor="#999" />
+                android:textColor="#999"
+                tools:text="20" />
         </LinearLayout>
 
-
-        <TextView
-            android:id="@+id/tvAcceptStation"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/start_time"
-            android:layout_marginTop="5dp"
-            android:text="快件在 深圳 ,准备送往下一站 深圳集散中心 [深圳市]"
-            android:textColor="#999" />
+            android:layout_below="@id/reservation_start_time"
+            android:layout_marginTop="@dimen/dp_10">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/home_constraint_layout_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/reservation_location_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/location_icon"
+                    app:layout_constraintStart_toEndOf="@+id/location_icon"
+                    app:layout_constraintTop_toTopOf="@+id/location_icon"
+                    tools:text="中国出版产业园 二期" />
+
+                <ImageView
+                    android:id="@+id/location_icon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:background="@drawable/ic_location"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/seat_icon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/ic_seat"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/location_icon"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/reservation_seat_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/seat_icon"
+                    app:layout_constraintStart_toEndOf="@+id/seat_icon"
+                    app:layout_constraintTop_toTopOf="@+id/seat_icon"
+                    tools:text="D座 七楼 B12 22" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/reservation_status_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="16sp"
+                tools:ignore="RelativeOverlap"
+                tools:text="失败" />
+        </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

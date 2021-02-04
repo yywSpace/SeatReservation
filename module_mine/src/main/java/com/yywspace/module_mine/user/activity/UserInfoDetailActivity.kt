@@ -1,4 +1,4 @@
-package com.yywspace.module_mine.user
+package com.yywspace.module_mine.user.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -20,6 +20,7 @@ import com.luck.picture.lib.listener.OnResultCallbackListener
 import com.yywspace.module_base.bean.User
 import com.yywspace.module_mine.R
 import com.yywspace.module_mine.databinding.MineUserInfoActivityBinding
+import com.yywspace.module_mine.user.GlideEngine
 
 
 class UserInfoDetailActivity : AppCompatActivity() {

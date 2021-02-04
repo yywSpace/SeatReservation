@@ -1,4 +1,4 @@
-package com.yywspace.module_mine.user;
+package com.yywspace.module_mine.user.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -15,6 +15,7 @@ import com.yywspace.module_mine.R;
 import com.yywspace.module_mine.StringAdapter;
 import com.yywspace.module_mine.databinding.MineActivityBinding;
 import com.yywspace.module_mine.databinding.MineRecyelerViewTestBinding;
+import com.yywspace.module_mine.user.UserMineFragment;
 
 public class MineActivity extends AppCompatActivity {
 

@@ -16,6 +16,11 @@ import com.yywspace.module_mine.R
 import com.yywspace.module_mine.databinding.MineUserFragmentLayoutBinding
 import com.yywspace.module_mine.iview.IUserInfoView
 import com.yywspace.module_mine.presenter.UserInfoPresenter
+import com.yywspace.module_mine.user.activity.ReservationRuleActivity
+import com.yywspace.module_mine.user.activity.UserInfoDetailActivity
+import com.yywspace.module_mine.user.activity.UserInfoReservationListActivity
+import com.yywspace.module_mine.user.activity.UserInfoStatisticAnalysisActivity
+import com.yywspace.module_mine.user.adapter.UserInfItemListAdapter
 
 @Route(path = RouterPath.MINE_PATH)
 class UserMineFragment : BaseFragment<IUserInfoView, UserInfoPresenter>(), IUserInfoView {
@@ -43,13 +48,14 @@ class UserMineFragment : BaseFragment<IUserInfoView, UserInfoPresenter>(), IUser
                         Toast.makeText(requireContext(), "机构收藏", Toast.LENGTH_SHORT).show();
                     }
                     "预约记录" -> {
-                        startActivity(Intent(requireContext(),UserInfoReservationListActivity::class.java))
+                        startActivity(Intent(requireContext(), UserInfoReservationListActivity::class.java))
                         Toast.makeText(requireContext(), "预约记录", Toast.LENGTH_SHORT).show();
                     }
                     "违约记录" -> {
                         Toast.makeText(requireContext(), "违约记录", Toast.LENGTH_SHORT).show();
                     }
                     "统计概况" -> {
+                        startActivity(Intent(requireContext(), UserInfoStatisticAnalysisActivity::class.java))
                         Toast.makeText(requireContext(), "统计概况", Toast.LENGTH_SHORT).show();
                     }
                 }

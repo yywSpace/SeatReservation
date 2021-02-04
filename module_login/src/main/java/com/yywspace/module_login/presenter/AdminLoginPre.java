@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleOwner;
 import com.yywspace.module_base.bean.User;
 import com.yywspace.module_base.net.ServerUtils;
 import com.yywspace.module_base.net.crypto.MD5Util;
-import com.yywspace.module_base.util.JsonUtil;
+import com.yywspace.module_base.util.JsonUtils;
 import com.yywspace.module_base.util.LogUtils;
 import com.yywspace.module_login.emum.LoginInput;
 
@@ -28,7 +28,7 @@ public class AdminLoginPre extends LoginPresenter.UserLoginPresenter {
         // 密码md5加密
         loginUser.setPassword(MD5Util.encrypt(loginUser.getPassword()));
         LogUtils.d(loginUser.getPassword());
-        RequestBody body = RequestBody.create(JsonUtil.getGson().toJson(loginUser), MediaType.parse("application/json; charset=utf-8"));
+        RequestBody body = RequestBody.create(JsonUtils.getGson().toJson(loginUser), MediaType.parse("application/json; charset=utf-8"));
         ServerUtils.getCommonApi().adminLogin(body).observe(owner, userBaseResponse -> {
             User user = userBaseResponse.getData();
             if (user != null)

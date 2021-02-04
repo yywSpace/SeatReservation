@@ -6,4 +6,16 @@
     <string name="mine_reservation_rule">预约规则</string>
     <string name="mine_sex_man">男</string>
     <string name="mine_sex_woman">女</string>
+    <string name="mine_filter_none_label">全部</string>
+    <string name="mine_filter_now_label">当前</string>
+    <string name="mine_filter_success_label">成功</string>
+    <string name="mine_filter_breach_label">违约</string>
+    <string name="mine_statistic_overview_label">总览</string>
+    <string name="mine_statistic_reservation_times_label">预约次数</string>
+    <string name="mine_statistic_breach_times_label">违约次数</string>
+    <string name="mine_statistic_study_times_label">自习时长</string>
+    <string name="mine_statistic_study_times_per_day_label">日平均时长</string>
+    <string name="mine_org_time_analysis_label">机构时间统计</string>
+    <string name="mine_study_time_label">自习时间</string>
+    <string name="mine_statistic_menu_share">分享</string>
 </resources>

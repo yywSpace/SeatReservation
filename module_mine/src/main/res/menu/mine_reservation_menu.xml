@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/filter"
+        android:title="@string/base_menu_filter_label">
+        <menu>
+            <group
+                android:id="@+id/filter_group"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/filter_none"
+                    android:checked="true"
+                    android:title="@string/mine_filter_none_label" />
+                <item
+                    android:id="@+id/filter_now"
+                    android:title="@string/mine_filter_now_label" />
+                <item
+                    android:id="@+id/filter_success"
+                    android:title="@string/mine_filter_success_label" />
+                <item
+                    android:id="@+id/filter_breach"
+                    android:title="@string/mine_filter_breach_label" />
+            </group>
+        </menu>
+    </item>
+</menu>
