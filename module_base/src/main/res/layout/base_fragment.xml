@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".TestFragment">
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/mine_favourite_org_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"

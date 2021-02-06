@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,16 +8,17 @@
     android:orientation="vertical"
     tools:ignore="UseCompoundDrawables">
 
-    <ProgressBar
-        android:id="@+id/reserve_loading_progress"
-        android:layout_width="45dp"
-        android:layout_height="45dp" />
+    <ImageView
+        android:id="@+id/reserve_empty_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/base_empty_view_label"
+        app:srcCompat="@drawable/ic_empty_icon" />
 
     <TextView
         android:id="@+id/reserve_empty_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="@string/reserve_load_view_label"
+        android:text="@string/base_empty_view_label"
         android:textSize="18sp" />
 </LinearLayout>

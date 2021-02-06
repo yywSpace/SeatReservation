@@ -16,6 +16,6 @@ class RoomListAdapter : BaseQuickAdapter<Room, BaseViewHolder>(R.layout.reserve_
         holder.setText(R.id.room_name, item.roomName)
         holder.setText(R.id.room_location, item.roomLocation)
         // holder.setImageBitmap(R.id.room_image, item.roomImage)
-        holder.setText(R.id.room_person_num, item.roomSeatCount)
+        holder.setText(R.id.room_person_num, "${item.totalSeats - item.emptySeats}/${item.totalSeats}")
     }
 }

@@ -6,11 +6,11 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Room(
+        var id: Int = -1,
         var roomName: String = "",
         var roomDesc: String = "",
-        var roomSeatCount: String = "",
         var roomLocation: String = "",
-        var totalSeats:Int = 0,
-        var emptySeats:Int = 0,
+        var totalSeats: Int = 0,
+        var emptySeats: Int = 0,
         var roomImage: Bitmap? = null
 ) : Parcelable

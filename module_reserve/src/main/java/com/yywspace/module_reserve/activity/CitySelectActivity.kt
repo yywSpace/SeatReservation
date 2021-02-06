@@ -167,7 +167,7 @@ class CitySelectActivity : AppCompatActivity() {
                             addView(searchResultView)
                         }
                         if (resultList.isEmpty()) {
-                            searchListAdapter?.setEmptyView(R.layout.reserve_empty_view)
+                            searchListAdapter?.setEmptyView(R.layout.base_empty_view)
                         }
                         return true
                     } else {

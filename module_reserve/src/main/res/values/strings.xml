@@ -3,21 +3,15 @@
     <string name="reserve_location_icon_dec">地点</string>
     <string name="reserve_person_count_icon_desc">人数</string>
     <string name="reserve_collect_icon_desc">收藏图标</string>
-    <string name="reserve_empty_view_label">当前数据为空</string>
-    <string name="reserve_load_view_label">加载中</string>
     <string name="reserve_city_query_hint">请输入地区或城市</string>
     <string name="reserve_city_default_location">当前定位</string>
     <string name="reserve_city_location_history">选择历史</string>
     <string name="reserve_tool_bar_array_down_desc">下箭头</string>
     <string name="reserve_organization_image_desc">机构图片</string>
     <string name="reserve_room_image_desc">房间图片</string>
-    <string name="reserve_menu_search_label">搜索</string>
-    <string name="reserve_menu_sort_label">排序</string>
+
     <string name="reserve_menu_plan_label">平面图</string>
-    <string name="reserve_menu_sort_by_name_label">名称</string>
-    <string name="reserve_menu_sort_by_seat_label">空位</string>
-    <string name="reserve_menu_sort_reverse_label">逆序</string>
-    <string name="reserve_organization_transition_name">organization_transition_name</string>
+
     <string name="reserve_room_transition_name">room_transition_name</string>
     <string name="reserve_henu_lib_des">
         <![CDATA[

@@ -52,6 +52,10 @@
             android:name=".user.activity.UserInfoFavouriteOrgActivity"
             android:parentActivityName=".user.activity.MineActivity"
             android:theme="@style/MineAppTheme" />
+        <activity
+            android:name=".user.activity.UserFavouriteOrgActivity"
+            android:parentActivityName=".user.activity.MineActivity"
+            android:theme="@style/MineAppTheme" />
     </application>
 
 </manifest>

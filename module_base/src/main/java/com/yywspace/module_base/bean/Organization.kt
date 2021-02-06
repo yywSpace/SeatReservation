@@ -5,6 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Organization(
+        var id: Int = -1,
         var name: String,
         var location: String,
         var desc: String,

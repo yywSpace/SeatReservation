@@ -3,9 +3,14 @@ package com.yywspace.module_base.net.api;
 import androidx.lifecycle.LiveData;
 
 import com.yywspace.module_base.base.BaseResponse;
+import com.yywspace.module_base.bean.Organization;
 import com.yywspace.module_base.bean.User;
+import com.yywspace.module_base.bean.scene.Floor;
+import com.yywspace.module_base.bean.scene.Room;
+import com.yywspace.module_base.bean.scene.Seat;
 
 
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.RequestBody;
@@ -33,4 +38,18 @@ public interface SeatReservationApi {
 
     @GET("/common/getPublicKey")
     LiveData<BaseResponse<String>> getPublicKey();
+
+    @GET("/organization/list")
+    LiveData<BaseResponse<List<Organization>>> getOrganizationList();
+
+
+    @GET("/organization/floor/{id}")
+    LiveData<BaseResponse<List<Floor>>> getFloorList(@Path("id") int id);
+
+    @GET("/organization/room/{id}")
+    LiveData<BaseResponse<List<Room>>> getRoomList(@Path("id") int id);
+
+
+    @GET("/organization/seat/{id}")
+    LiveData<BaseResponse<List<Seat>>> getSeatList(@Path("id") int id);
 }

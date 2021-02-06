@@ -121,24 +121,25 @@
             android:background="@android:color/darker_gray" />
 
         <LinearLayout
+            android:id="@+id/mine_notify_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
-            tools:ignore="UseCompoundDrawables,UselessParent">
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/ic_question"
+                android:background="@drawable/ic_notify"
                 tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@string/mine_reservation_rule"
+                android:text="@string/mine_notify_label"
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>

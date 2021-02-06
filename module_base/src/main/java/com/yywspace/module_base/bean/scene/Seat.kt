@@ -1,6 +1,6 @@
 package com.yywspace.module_base.bean.scene
 
-data class Seat(var name: String,
-                var desc: String,
+data class Seat(var seatName: String,
+                var seatDesc: String,
                 var seatMsg: String = "",
-                var isBusy: Boolean = false)
+                var seatStatus: Int = 0)

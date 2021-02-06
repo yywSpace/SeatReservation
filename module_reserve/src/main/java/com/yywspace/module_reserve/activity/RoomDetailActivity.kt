@@ -14,20 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
-import com.google.android.material.textfield.TextInputLayout
 import com.yywspace.module_base.base.BaseActivity
-import com.yywspace.module_base.bean.Organization
 import com.yywspace.module_base.bean.scene.Room
 import com.yywspace.module_base.bean.scene.Seat
-import com.yywspace.module_base.util.LogUtils
 import com.yywspace.module_reserve.R
-import com.yywspace.module_reserve.adapter.FloorListAdapter
 import com.yywspace.module_reserve.adapter.SeatListAdapter
-import com.yywspace.module_reserve.databinding.ReserveActivityOrganizationDetailBinding
 import com.yywspace.module_reserve.databinding.ReserveRoomDetailBinding
-import com.yywspace.module_reserve.iview.IRoomListView
 import com.yywspace.module_reserve.iview.ISeatListView
-import com.yywspace.module_reserve.presenter.RoomListPresenter
 import com.yywspace.module_reserve.presenter.SeatListPresenter
 import java.util.stream.Collectors
 
@@ -51,23 +44,23 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
 
     override fun init() {
         setContentView(binding.root)
-        val room = intent.getParcelableExtra<Room>("room")
+        val room = intent.getParcelableExtra<Room>("room") ?: return
         binding.reverseToolbar.setTitleTextColor(Color.BLACK)
         setSupportActionBar(binding.reverseToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true) //添加默认的返回图标
         supportActionBar?.setHomeButtonEnabled(true) //设置返回键可用
-        supportActionBar?.title = room?.roomName
+        supportActionBar?.title = room.roomName
         binding.expandRoomDesc.text =
-                Html.fromHtml(room?.roomDesc, Html.FROM_HTML_MODE_LEGACY)
+                Html.fromHtml(room.roomDesc, Html.FROM_HTML_MODE_LEGACY)
         initAdapter()
         binding.floorLocation.apply {
-            text = room?.roomName
+            text = room.roomName
             setOnClickListener {
                 Toast.makeText(this@RoomDetailActivity, "${text}", Toast.LENGTH_SHORT).show();
             }
         }
         binding.roomPersonCount.apply {
-            text = "${room?.totalSeats!! - room?.emptySeats!!}/${room?.totalSeats}"
+            text = "${room.totalSeats - room.emptySeats}/${room.totalSeats}"
             setOnClickListener {
                 Toast.makeText(this@RoomDetailActivity, "${text}", Toast.LENGTH_SHORT).show();
             }
@@ -83,7 +76,7 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
             adapter = seatListAdapter
             addItemDecoration(DividerItemDecoration(this@RoomDetailActivity, DividerItemDecoration.VERTICAL))
         }
-        presenter.getSeatList(this@RoomDetailActivity)
+        presenter.getSeatList(this@RoomDetailActivity, room.id)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -99,7 +92,7 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
             R.id.filter_busy -> {
                 item.isChecked = true
                 val busySeats = seatListAdapter.data.stream().filter {
-                    it.isBusy
+                    it.seatStatus == 1
                 }.collect(Collectors.toList()).toMutableList()
                 filterListAdapter.setNewInstance(busySeats)
                 binding.roomRecyclerView.adapter = filterListAdapter
@@ -107,7 +100,7 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
             R.id.filter_empty -> {
                 item.isChecked = true
                 val emptySeats = seatListAdapter.data.stream().filter {
-                    !it.isBusy
+                    it.seatStatus == 0
                 }.collect(Collectors.toList()).toMutableList()
                 filterListAdapter.setNewInstance(emptySeats)
                 binding.roomRecyclerView.adapter = filterListAdapter
@@ -130,13 +123,13 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
             customView(R.layout.reserve_room_seat_info)
         }
         val customView = dialog.getCustomView()
-        customView.findViewById<TextView>(R.id.seat_name).text = seat.name
-        customView.findViewById<TextView>(R.id.seat_desc).text = seat.desc
+        customView.findViewById<TextView>(R.id.seat_name).text = seat.seatName
+        customView.findViewById<TextView>(R.id.seat_desc).text = seat.seatDesc
         customView.findViewById<TextView>(R.id.seat_status).apply {
-            if (seat.isBusy) {
+            if (seat.seatStatus == 1) {
                 text = "繁忙"
                 setTextColor(Color.RED)
-            } else {
+            } else if (seat.seatStatus == 0) {
                 text = "空闲"
                 setTextColor(Color.BLUE)
             }
@@ -144,7 +137,7 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
         customView.findViewById<TextView>(R.id.seat_message).text = seat.seatMsg
         dialog.show {
             noAutoDismiss()
-            if (!seat.isBusy) {
+            if (seat.seatStatus != 1) {
                 positiveButton(R.string.reserve_select_seat_btn) {
                     // TODO: 21-1-31 联网 
                     dismiss()
@@ -157,6 +150,7 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
     private fun initAdapter() {
         seatListAdapter = SeatListAdapter().apply {
             setOnItemClickListener { adapter, view, position ->
+                seatListAdapter.setEmptyView(R.layout.base_loading_view)
                 showSeatInfoDialog(adapter.data[position] as Seat)
             }
         }
@@ -168,15 +162,12 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
     }
 
     override fun getSeatListResult(seatList: List<Seat>?) {
-        Handler().postDelayed({
-            if (seatList == null)
-                seatListAdapter.setEmptyView(R.layout.reserve_empty_view)
-            else {
-                seatListAdapter.setNewInstance(seatList.toMutableList())
-                Toast.makeText(baseContext, "${seatList.size}", Toast.LENGTH_SHORT).show();
-            }
-
+        if (seatList == null)
+            seatListAdapter.setEmptyView(R.layout.base_empty_view)
+        else {
+            seatListAdapter.setNewInstance(seatList.toMutableList())
+            Toast.makeText(baseContext, "${seatList.size}", Toast.LENGTH_SHORT).show();
+        }
 //            binding.swipeRefreshLayout.isRefreshing = false;
-        }, 500)
     }
 }

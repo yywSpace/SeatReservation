@@ -12,7 +12,7 @@ class OrganizationListAdapter : BaseQuickAdapter<Organization, BaseViewHolder>(R
      * 在此方法中设置item数据
      */
     override fun convert(holder: BaseViewHolder, item: Organization) {
-        holder.setText(R.id.title, item.name)
+        holder.setText(R.id.org_name, item.name)
         holder.setText(R.id.reserve_location, item.location)
         holder.setBackgroundResource(R.id.reserve_collect,
                 if (item.isFavourite) R.drawable.ic_collected else R.drawable.ic_collect)

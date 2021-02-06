@@ -11,9 +11,11 @@ class ReservationRuleActivity : AppCompatActivity() {
         val binding = MineReservationRuleActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolBar)
-        supportActionBar?.title = "预约规则"
+        val title = intent.getStringExtra("title")
+        val url = intent.getStringExtra("url")
+        supportActionBar?.title = title
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-        binding.webView.loadUrl("file:///android_asset/云计算相关知识.html");
+        binding.webView.loadUrl(url)
     }
 }

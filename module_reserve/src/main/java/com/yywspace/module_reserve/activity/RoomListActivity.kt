@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.howshea.roundcornerimageview.RoundCornerImageView
 import com.yywspace.module_base.base.BaseActivity
 import com.yywspace.module_base.bean.Organization
+import com.yywspace.module_base.bean.scene.Floor
 import com.yywspace.module_base.bean.scene.Room
 import com.yywspace.module_reserve.R
 import com.yywspace.module_reserve.adapter.RoomListAdapter
@@ -37,12 +38,12 @@ class RoomListActivity : BaseActivity<IRoomListView, RoomListPresenter>(), IRoom
     }
 
     override fun init() {
-        val floorName = intent.getStringExtra("floor")
-        val organizationName = intent.getStringExtra("organization_name")
+        val floor = intent.getParcelableExtra<Floor>("floor") ?: return
+        val organizationName = intent.getStringExtra("organization_name") ?: return
         setSupportActionBar(binding.toolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true) //添加默认的返回图标
         supportActionBar?.setHomeButtonEnabled(true) //设置返回键可用
-        supportActionBar?.title = "$organizationName-$floorName"
+        supportActionBar?.title = "$organizationName-${floor.floorName}"
         roomListAdapter = RoomListAdapter().apply {
             setOnItemClickListener { adapter, view, position ->
                 val shareImg = view.findViewById<RoundCornerImageView>(R.id.room_image)
@@ -59,7 +60,7 @@ class RoomListActivity : BaseActivity<IRoomListView, RoomListPresenter>(), IRoom
         }
         binding.swipeRefreshLayout.apply {
             setOnRefreshListener {
-                presenter.getRoomList(this@RoomListActivity)
+                presenter.getRoomList(this@RoomListActivity, floor.id)
             }
         }
         binding.recyclerView.apply {
@@ -67,8 +68,8 @@ class RoomListActivity : BaseActivity<IRoomListView, RoomListPresenter>(), IRoom
             adapter = roomListAdapter
             addItemDecoration(DividerItemDecoration(this@RoomListActivity, DividerItemDecoration.VERTICAL))
         }
-        roomListAdapter.setEmptyView(R.layout.reserve_loading_view)
-        presenter.getRoomList(this)
+        roomListAdapter.setEmptyView(R.layout.base_loading_view)
+        presenter.getRoomList(this, floor.id)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -93,15 +94,12 @@ class RoomListActivity : BaseActivity<IRoomListView, RoomListPresenter>(), IRoom
     }
 
     override fun getRoomListResult(roomList: List<Room>?) {
-        Handler().postDelayed({
-            if (roomList == null)
-                roomListAdapter.setEmptyView(R.layout.reserve_empty_view)
-            else {
-                roomListAdapter.setNewInstance(roomList.toMutableList())
-                Toast.makeText(baseContext, "${roomList.size}", Toast.LENGTH_SHORT).show();
-            }
-
-            binding.swipeRefreshLayout.isRefreshing = false;
-        }, 500)
+        if (roomList == null)
+            roomListAdapter.setEmptyView(R.layout.base_empty_view)
+        else {
+            roomListAdapter.setNewInstance(roomList.toMutableList())
+            Toast.makeText(baseContext, "${roomList.size}", Toast.LENGTH_SHORT).show();
+        }
+        binding.swipeRefreshLayout.isRefreshing = false;
     }
 }

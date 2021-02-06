@@ -44,7 +44,6 @@ public class TestFragment extends Fragment {
     }
 
     private void initView() {
-        mBinding.title.setText(mCurModule);
         mBinding.feedback.setOnClickListener((v) -> {
             if (!mCurModule.equals(RouterPath.FEEDBACK_PATH))
                 ARouter.getInstance().build(RouterPath.FEEDBACK_PATH).navigation();

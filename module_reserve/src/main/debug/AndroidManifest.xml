@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.yywspace.module_reserve">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".AppReserve"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/reserve_app_name"
+        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/ReserveAppTheme">
         <activity android:name=".activity.ReserveActivity">
@@ -23,14 +25,12 @@
         </activity>
         <activity
             android:name=".activity.OrganizationDetailActivity"
-            android:parentActivityName=".activity.ReserveActivity"/>
+            android:parentActivityName=".activity.ReserveActivity" />
 
         <activity
             android:name=".activity.RoomListActivity"
-            android:parentActivityName=".activity.OrganizationDetailActivity"/>
-        <activity
-            android:name=".activity.RoomDetailActivity"
-         />
+            android:parentActivityName=".activity.OrganizationDetailActivity" />
+        <activity android:name=".activity.RoomDetailActivity" />
     </application>
 
 </manifest>

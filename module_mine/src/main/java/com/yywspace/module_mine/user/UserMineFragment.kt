@@ -16,10 +16,7 @@ import com.yywspace.module_mine.R
 import com.yywspace.module_mine.databinding.MineUserFragmentLayoutBinding
 import com.yywspace.module_mine.iview.IUserInfoView
 import com.yywspace.module_mine.presenter.UserInfoPresenter
-import com.yywspace.module_mine.user.activity.ReservationRuleActivity
-import com.yywspace.module_mine.user.activity.UserInfoDetailActivity
-import com.yywspace.module_mine.user.activity.UserInfoReservationListActivity
-import com.yywspace.module_mine.user.activity.UserInfoStatisticAnalysisActivity
+import com.yywspace.module_mine.user.activity.*
 import com.yywspace.module_mine.user.adapter.UserInfItemListAdapter
 
 @Route(path = RouterPath.MINE_PATH)
@@ -45,6 +42,7 @@ class UserMineFragment : BaseFragment<IUserInfoView, UserInfoPresenter>(), IUser
             setOnItemClickListener { adapter, view, position ->
                 when ((adapter.data[position] as UserInfoItem).name) {
                     "机构收藏" -> {
+                        startActivity(Intent(requireContext(), UserFavouriteOrgActivity::class.java))
                         Toast.makeText(requireContext(), "机构收藏", Toast.LENGTH_SHORT).show();
                     }
                     "预约记录" -> {
@@ -69,7 +67,16 @@ class UserMineFragment : BaseFragment<IUserInfoView, UserInfoPresenter>(), IUser
             setNewInstance(itemList.toMutableList())
         }
         binding.mineRuleLayout.setOnClickListener {
-            startActivity(Intent(requireContext(), ReservationRuleActivity::class.java))
+            startActivity(Intent(requireContext(), ReservationRuleActivity::class.java).apply {
+                putExtra("title", "预约规则")
+                putExtra("url", "file:///android_asset/预约规则.html")
+            })
+        }
+        binding.mineNotifyLayout.setOnClickListener {
+            startActivity(Intent(requireContext(), ReservationRuleActivity::class.java).apply {
+                putExtra("title", "通知")
+                putExtra("url", "file:///android_asset/版本更新.html")
+            })
         }
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())

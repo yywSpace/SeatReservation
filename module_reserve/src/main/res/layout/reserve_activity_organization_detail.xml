@@ -32,7 +32,7 @@
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_bg"
-                android:transitionName="@string/reserve_organization_transition_name"
+                android:transitionName="@string/base_organization_transition_name"
                 app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar

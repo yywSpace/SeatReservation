@@ -16,6 +16,7 @@ import com.howshea.roundcornerimageview.RoundCornerImageView
 import com.yywspace.module_base.base.BaseFragment
 import com.yywspace.module_base.bean.Organization
 import com.yywspace.module_base.path.RouterPath
+import com.yywspace.module_base.util.LogUtils
 import com.yywspace.module_reserve.R
 import com.yywspace.module_reserve.activity.CitySelectActivity
 import com.yywspace.module_reserve.activity.OrganizationDetailActivity
@@ -141,7 +142,7 @@ class ReserveFragment : BaseFragment<IOrganizationListView, OrganizationListPres
         }
         binding!!.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding!!.recyclerView.adapter = organizationListAdapter
-        organizationListAdapter?.setEmptyView(R.layout.reserve_loading_view)
+        organizationListAdapter?.setEmptyView(R.layout.base_loading_view)
         presenter.getOrganizationList(this)
     }
 
@@ -155,7 +156,7 @@ class ReserveFragment : BaseFragment<IOrganizationListView, OrganizationListPres
                 val bundle: Bundle? = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         requireActivity(),
                         shareImg,
-                        getString(R.string.reserve_organization_transition_name)
+                        getString(R.string.base_organization_transition_name)
                 ).toBundle()
                 startActivity(intent, bundle)
                 Toast.makeText(requireContext(), "点击子项：$position", Toast.LENGTH_SHORT).show();
@@ -188,14 +189,13 @@ class ReserveFragment : BaseFragment<IOrganizationListView, OrganizationListPres
     }
 
     override fun getOrganizationListResult(organizationList: List<Organization>?) {
-        Handler().postDelayed({
-            if (organizationList == null)
-                organizationListAdapter?.setEmptyView(R.layout.reserve_empty_view)
-            else
-                organizationListAdapter?.setNewInstance(organizationList.toMutableList())
+        LogUtils.d(organizationList.toString())
+        if (organizationList == null)
+            organizationListAdapter?.setEmptyView(R.layout.base_empty_view)
+        else
+            organizationListAdapter?.setNewInstance(organizationList.toMutableList())
 
-            binding!!.swipeRefreshLayout.isRefreshing = false;
-        }, 500)
+        binding!!.swipeRefreshLayout.isRefreshing = false;
     }
 
     private val activityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->

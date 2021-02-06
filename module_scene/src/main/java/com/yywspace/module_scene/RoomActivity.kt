@@ -1,16 +1,10 @@
 package com.yywspace.module_scene
 
 import android.Manifest
-import android.content.Context
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.RectF
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.*
 import android.widget.*
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
 import androidx.appcompat.app.AppCompatActivity
@@ -176,9 +170,9 @@ class RoomActivity : AppCompatActivity() {
                 val seat = seatMaps[shape?.name]
                 val customView = dialog.getCustomView()
                 val nameInputLayout = customView.findViewById<TextInputLayout>(R.id.shape_seat_name)
-                nameInputLayout.editText?.setText(seat?.name)
+                nameInputLayout.editText?.setText(seat?.seatName)
                 val descInputLayout = customView.findViewById<TextInputLayout>(R.id.shape_seat_desc)
-                descInputLayout.editText?.setText(seat?.desc)
+                descInputLayout.editText?.setText(seat?.seatDesc)
 
                 dialog.show {
                     noAutoDismiss()
@@ -191,8 +185,8 @@ class RoomActivity : AppCompatActivity() {
                             descInputLayout.error = "座位描述不可为空"
                             return@positiveButton
                         }
-                        seat?.name = nameInputLayout.editText?.text.toString()
-                        seat?.desc = descInputLayout.editText?.text.toString()
+                        seat?.seatName = nameInputLayout.editText?.text.toString()
+                        seat?.seatDesc = descInputLayout.editText?.text.toString()
                         Toast.makeText(context, seat.toString(), Toast.LENGTH_SHORT).show();
                         dismiss()
                     }
