@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 
 import com.yywspace.module_base.base.BaseResponse;
 import com.yywspace.module_base.bean.Organization;
+import com.yywspace.module_base.bean.Reservation;
 import com.yywspace.module_base.bean.User;
 import com.yywspace.module_base.bean.scene.Floor;
 import com.yywspace.module_base.bean.scene.Room;
@@ -28,9 +29,14 @@ public interface SeatReservationApi {
     @Headers({"contentType: application/json;charset=UTF-8"})
     LiveData<BaseResponse<User>> login(@Body RequestBody requestBody);
 
+    @POST("user/update")
+    @Headers({"contentType: application/json;charset=UTF-8"})
+    LiveData<BaseResponse<Object>> updateUser(@Body RequestBody requestBody);
+
     @POST("admin/login")
     @Headers({"contentType: application/json;charset=UTF-8"})
     LiveData<BaseResponse<User>> adminLogin(@Body RequestBody requestBody);
+
 
     @POST("user/register")
     @Headers({"contentType: application/json;charset=UTF-8"})
@@ -39,17 +45,30 @@ public interface SeatReservationApi {
     @GET("/common/getPublicKey")
     LiveData<BaseResponse<String>> getPublicKey();
 
-    @GET("/organization/list")
+    @GET("/organizations")
     LiveData<BaseResponse<List<Organization>>> getOrganizationList();
 
-
-    @GET("/organization/floor/{id}")
+    @GET("/organizations/floors/{id}")
     LiveData<BaseResponse<List<Floor>>> getFloorList(@Path("id") int id);
 
-    @GET("/organization/room/{id}")
+    @GET("/organizations/rooms/{id}")
     LiveData<BaseResponse<List<Room>>> getRoomList(@Path("id") int id);
 
 
-    @GET("/organization/seat/{id}")
+    @GET("/organizations/seats/{id}")
     LiveData<BaseResponse<List<Seat>>> getSeatList(@Path("id") int id);
+
+    @GET("/reservations/{id}")
+    LiveData<BaseResponse<List<Reservation>>> getReservationList(@Path("id") int id);
+
+    @POST("/reservations")
+    @Headers({"contentType: application/json;charset=UTF-8"})
+    LiveData<BaseResponse<Object>> insertReservation(@Body RequestBody requestBody);
+
+    @POST("/organizations/favourite")
+    @Headers({"contentType: application/json;charset=UTF-8"})
+    LiveData<BaseResponse<Object>> makeOrganizationFavourite(@Body RequestBody requestBody);
+
+    @GET("/reservations/running/{userId}")
+    LiveData<BaseResponse<Reservation>> getRunningReservation(@Path("userId") int userId);
 }

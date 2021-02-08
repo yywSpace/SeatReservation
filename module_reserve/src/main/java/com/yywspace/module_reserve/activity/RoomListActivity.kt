@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.*
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,16 +47,17 @@ class RoomListActivity : BaseActivity<IRoomListView, RoomListPresenter>(), IRoom
         supportActionBar?.title = "$organizationName-${floor.floorName}"
         roomListAdapter = RoomListAdapter().apply {
             setOnItemClickListener { adapter, view, position ->
+                val room = adapter.data[position] as Room
                 val shareImg = view.findViewById<RoundCornerImageView>(R.id.room_image)
                 val intent = Intent(this@RoomListActivity, RoomDetailActivity::class.java)
-                intent.putExtra("room", adapter.data[position] as Room)
+                intent.putExtra("room", room)
+                intent.putExtra("location","$organizationName-${floor.floorName}-${room.roomName}")
                 val bundle: Bundle? = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         this@RoomListActivity,
                         shareImg,
                         getString(R.string.reserve_room_transition_name)
                 ).toBundle()
                 startActivity(intent, bundle)
-                Toast.makeText(this@RoomListActivity, "${adapter.data[position]}", Toast.LENGTH_SHORT).show();
             }
         }
         binding.swipeRefreshLayout.apply {
@@ -66,7 +68,6 @@ class RoomListActivity : BaseActivity<IRoomListView, RoomListPresenter>(), IRoom
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@RoomListActivity)
             adapter = roomListAdapter
-            addItemDecoration(DividerItemDecoration(this@RoomListActivity, DividerItemDecoration.VERTICAL))
         }
         roomListAdapter.setEmptyView(R.layout.base_loading_view)
         presenter.getRoomList(this, floor.id)

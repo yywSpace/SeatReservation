@@ -11,7 +11,7 @@ object ReservationModel {
         val liveData = MutableLiveData<List<Reservation>?>()
         val list = mutableListOf<Reservation>()
         for (i in 0 until Random.Default.nextInt(5, 9)) {
-            list.add(Reservation((i * 10000).toLong(), (i * 20000).toLong(), "location$i", "seat$i", Random.Default.nextInt(0, 3)))
+            list.add(Reservation(-1, -1, -1, "", (i * 10000).toLong(), (i * 20000).toLong(), "location$i", Random.Default.nextInt(0, 3)))
         }
         liveData.value = list
         return liveData

@@ -20,7 +20,6 @@ public class FeedbackActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FeedbackActivityBinding  binding = FeedbackActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.title.setText(RouterPath.FEEDBACK_PATH);
 
         //添加fragment
         FragmentManager fm = getSupportFragmentManager();

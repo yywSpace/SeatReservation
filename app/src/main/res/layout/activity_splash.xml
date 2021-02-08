@@ -17,9 +17,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
-        android:src="@drawable/ic_splash_logo"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="80dp"
         android:contentDescription="@string/logo_img_desc"/>
+    <!--        android:src="@drawable/ic_splash_logo"-->
 
 </LinearLayout>

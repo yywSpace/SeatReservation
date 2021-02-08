@@ -19,7 +19,6 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SettingActivityBinding binding = SettingActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.title.setText(RouterPath.SETTING_PATH);
 
         //添加fragment
         FragmentManager fm = getSupportFragmentManager();

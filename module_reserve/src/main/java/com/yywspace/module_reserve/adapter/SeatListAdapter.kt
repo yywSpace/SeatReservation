@@ -27,6 +27,13 @@ class SeatListAdapter : BaseQuickAdapter<Seat, BaseViewHolder>(R.layout.reserve_
             2 -> { // 不可用
 
             }
+            3 -> {
+                holder.setText(R.id.seat_status, "预订中")
+                holder.setText(R.id.seat_message, item.seatMsg)
+                holder.setTextColor(R.id.seat_status, Color.GREEN)
+                holder.setImageResource(R.id.seat_img, R.drawable.ic_run)
+
+            }
         }
         holder.setText(R.id.seat_name, item.seatName)
     }

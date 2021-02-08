@@ -101,7 +101,7 @@ class UserInfoReservationListActivity : BaseActivity<IReservationListView, Reser
                     binding.mineReservationStartTime.text = TimeUtils.longToString(reservation.startTime, TimeUtils.formatPattern)
                     binding.mineReservationOrg.text = reservation.location
                     binding.mineReservationOrgLoc.text = reservation.location
-                    binding.mineReservationSeat.text = reservation.seat
+                    binding.mineReservationSeat.text = reservation.seatName
                     binding.mineReservationStatus.text = when (reservation.status) {
                         0 -> "执行中"
                         1 -> "成功"

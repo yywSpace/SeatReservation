@@ -15,6 +15,9 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
 import com.yywspace.module_base.base.BaseActivity
+import com.yywspace.module_base.base.BaseResponse
+import com.yywspace.module_base.bean.Reservation
+import com.yywspace.module_base.bean.User
 import com.yywspace.module_base.bean.scene.Room
 import com.yywspace.module_base.bean.scene.Seat
 import com.yywspace.module_reserve.R
@@ -27,6 +30,7 @@ import java.util.stream.Collectors
 class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISeatListView {
     private lateinit var binding: ReserveRoomDetailBinding
     private lateinit var seatListAdapter: SeatListAdapter
+    lateinit var room: Room
     lateinit var filterListAdapter: SeatListAdapter
 
     override fun getLayout(inflater: LayoutInflater): View {
@@ -44,7 +48,7 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
 
     override fun init() {
         setContentView(binding.root)
-        val room = intent.getParcelableExtra<Room>("room") ?: return
+        room = intent.getParcelableExtra<Room>("room") ?: return
         binding.reverseToolbar.setTitleTextColor(Color.BLACK)
         setSupportActionBar(binding.reverseToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true) //添加默认的返回图标
@@ -126,20 +130,39 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
         customView.findViewById<TextView>(R.id.seat_name).text = seat.seatName
         customView.findViewById<TextView>(R.id.seat_desc).text = seat.seatDesc
         customView.findViewById<TextView>(R.id.seat_status).apply {
-            if (seat.seatStatus == 1) {
-                text = "繁忙"
-                setTextColor(Color.RED)
-            } else if (seat.seatStatus == 0) {
-                text = "空闲"
-                setTextColor(Color.BLUE)
+            when (seat.seatStatus) {
+                0 -> {
+                    text = "空闲"
+                    setTextColor(Color.BLUE)
+                }
+                1 -> {
+                    text = "繁忙"
+                    setTextColor(Color.RED)
+                }
+                2 -> {
+                    text = "不可以"
+                    setTextColor(Color.GRAY)
+                }
+                3 -> {
+                    text = "预订中"
+                    setTextColor(Color.GREEN)
+                }
             }
         }
         customView.findViewById<TextView>(R.id.seat_message).text = seat.seatMsg
         dialog.show {
             noAutoDismiss()
-            if (seat.seatStatus != 1) {
+            if (seat.seatStatus == 0) {
                 positiveButton(R.string.reserve_select_seat_btn) {
-                    // TODO: 21-1-31 联网 
+                    if (Reservation.runningReservation != null) {
+                        Toast.makeText(this@RoomDetailActivity, "当前已有预订", Toast.LENGTH_SHORT).show();
+                        return@positiveButton
+                    }
+                    // TODO: 21-2-7 添加userId
+                    val userId = if (User.currentUser == null) 2 else User.currentUser!!.id
+                    val location = intent.getStringExtra("location")
+                    presenter.reserveSeat(Reservation(-1, userId!!, seat.id, seat.seatName, System.currentTimeMillis(), -1, location
+                            ?: "", 0), this@RoomDetailActivity)
                     dismiss()
                 }
             }
@@ -169,5 +192,19 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
             Toast.makeText(baseContext, "${seatList.size}", Toast.LENGTH_SHORT).show();
         }
 //            binding.swipeRefreshLayout.isRefreshing = false;
+    }
+
+    override fun reserveSeat(response: BaseResponse<Any>) {
+        when (response.code) {
+            1 -> {
+                presenter.getSeatList(this, room.id)
+            }
+            4000 -> {//SEAT_IS_BUSY(4000, "座位繁忙"),
+                Toast.makeText(baseContext, "座位繁忙", Toast.LENGTH_SHORT).show();
+            }
+            4001 -> {//SEAT_IS_FORBIDDEN(4001, "座位不可以");
+                Toast.makeText(baseContext, "座位不可用", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

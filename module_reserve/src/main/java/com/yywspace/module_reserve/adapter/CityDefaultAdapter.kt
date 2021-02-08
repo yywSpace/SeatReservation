@@ -11,15 +11,14 @@ import com.zhy.view.flowlayout.TagAdapter
 import com.zhy.view.flowlayout.TagFlowLayout
 
 
-class CityDefaultAdapter(val layoutInflater: LayoutInflater) : BaseQuickAdapter<String, BaseViewHolder>(R.layout.reserve_city_select_default_view) {
+class CityDefaultAdapter(val layoutInflater: LayoutInflater, location: String) : BaseQuickAdapter<String, BaseViewHolder>(R.layout.reserve_city_select_default_view) {
     var onDefaultTagClickListener: ((String) -> Boolean)? = null
     var onHistoryTagClickListener: ((String) -> Boolean)? = null
     var defaultLocationList: List<String>? = null
     var historyLocationList: List<String>? = null
 
     init {
-        // TODO: 20-11-27 定位和room读取
-        defaultLocationList = listOf("郑州")
+        defaultLocationList = listOf(location)
         historyLocationList = listOf("正轴", "开发", "河南")
     }
 
@@ -41,7 +40,6 @@ class CityDefaultAdapter(val layoutInflater: LayoutInflater) : BaseQuickAdapter<
                                         }
                             }
                         }
-
                     }
 
             findViewById<TagFlowLayout>(R.id.reserve_location_history)

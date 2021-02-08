@@ -5,15 +5,29 @@ import androidx.lifecycle.MutableLiveData
 import com.yywspace.module_base.base.BaseResponse
 import com.yywspace.module_base.bean.Organization
 import com.yywspace.module_base.net.ServerUtils
+import com.yywspace.module_base.util.JsonUtils
 import com.yywspace.module_base.util.LogUtils
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import kotlin.random.Random
 
 object OrganizationModel {
+    fun makeOrganizationFavourite(organizationId: Int, userId: Int, favouriteStatus: Boolean): LiveData<BaseResponse<Any>> {
+        val body = """
+          {
+              "organizationId" :$organizationId,
+              "userId": $userId,
+              "favouriteStatus" : $favouriteStatus
+          } """.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        return ServerUtils.getCommonApi().makeOrganizationFavourite(body)
+    }
+
     fun getOrganizationList(): LiveData<BaseResponse<List<Organization>>> {
         return ServerUtils.getCommonApi().organizationList
     }
 
-    fun getLocalOrganizationList():List<Organization> {
+    fun getLocalOrganizationList(): List<Organization> {
         val list: MutableList<Organization> = mutableListOf()
         for (i in 0 until Random.Default.nextInt(5, 9)) {
             list.add(Organization(-1, "河南大学$i", "河南大学-金明校区",

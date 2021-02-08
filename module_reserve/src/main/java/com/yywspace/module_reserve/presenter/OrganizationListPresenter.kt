@@ -18,4 +18,12 @@ class OrganizationListPresenter : BasePresenter<IOrganizationListView>() {
             view.getOrganizationListResult(it.data)
         })
     }
+
+    fun makeOrganizationFavourite(owner: LifecycleOwner, organizationId: Int, userId: Int, favouriteStatus: Boolean) {
+        OrganizationModel.makeOrganizationFavourite(organizationId, userId, favouriteStatus)
+                .observe(owner, Observer {
+                    view.makeOrganizationFavourite(it)
+                })
+    }
+
 }

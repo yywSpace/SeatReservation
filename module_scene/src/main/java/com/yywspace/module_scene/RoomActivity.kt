@@ -90,7 +90,7 @@ class RoomActivity : AppCompatActivity() {
                             bottomPanel.assembleSubOptPanel(it)
                     }
                 })
-                seatMaps[shapeName] = Seat(shapeName,shapeName)
+                seatMaps[shapeName] = Seat(-1,shapeName,shapeName)
             }
             R.id.scene_replace_background -> {
                 photoSelectLauncherPermission.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -250,7 +250,7 @@ class RoomActivity : AppCompatActivity() {
                             bottomPanel.assembleSubOptPanel(it)
                     }
                 })
-                seatMaps[shapeName] = Seat(shapeName,shapeName)
+                seatMaps[shapeName] = Seat(-1,shapeName,shapeName)
 
             }
 

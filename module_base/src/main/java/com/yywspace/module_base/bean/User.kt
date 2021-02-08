@@ -10,8 +10,10 @@ data class User(var id: Int? = 0,
                 var sex: Int? = null,
                 var password: String? = null,
                 var isAdmin: Boolean = false,
-                var avatar: String? = null) : Parcelable {
-
+                var avatarPath: String? = null) : Parcelable {
+    companion object {
+        var currentUser: User? = null
+    }
 
     constructor(username: String?, message: String?, sex: Int?) : this() {
         this.username = username

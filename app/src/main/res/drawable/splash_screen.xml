@@ -4,7 +4,8 @@
     <item android:drawable="@android:color/white" />
 
     <!--注意此处的bottom要和activity_splash.xml中的logo图marginBottom的值保持一致-->
-    <item android:bottom="40dp" android:gravity="center|bottom" android:drawable="@drawable/ic_splash_logo">
+    <!--    56dp-->
+    <item android:bottom="80dp" android:gravity="center|bottom" android:drawable="@drawable/ic_splash_logo">
         <!-- 图片 -->
 <!--        <bitmap-->
 <!--            android:gravity="center|bottom"-->

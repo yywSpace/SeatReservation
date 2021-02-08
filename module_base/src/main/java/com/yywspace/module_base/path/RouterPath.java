@@ -9,4 +9,6 @@ public class RouterPath {
     public static final String SCENE_PATH = "/scene/test";
     public static final String SETTING_PATH = "/setting/test";
     public static final String HOME_PATH = "/home/fragment";
+    public static final String MAIN_PATH = "/app/main";
+
 }

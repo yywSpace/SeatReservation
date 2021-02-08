@@ -1,10 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.yywspace.module_mine">
-
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true">
-        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar" android:name=".user.activity.MineActivity"/>
+        <activity android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".user.activity.MineActivity"/>
+
+        <activity
+            android:name=".user.activity.UserInfoDetailActivity"
+            android:parentActivityName=".user.activity.MineActivity"
+            android:theme="@style/MineAppTheme" />
+        <activity
+            android:name=".user.activity.ReservationRuleActivity"
+            android:parentActivityName=".user.activity.MineActivity"
+            android:theme="@style/MineAppTheme" />
+
+        <activity
+            android:name=".user.activity.UserInfoReservationListActivity"
+            android:parentActivityName=".user.activity.MineActivity"
+            android:theme="@style/MineAppTheme" />
+
+        <activity
+            android:name=".user.activity.UserInfoStatisticAnalysisActivity"
+            android:parentActivityName=".user.activity.MineActivity"
+            android:theme="@style/MineAppTheme" />
+
+        <activity
+            android:name=".user.activity.UserInfoFavouriteOrgActivity"
+            android:parentActivityName=".user.activity.MineActivity"
+            android:theme="@style/MineAppTheme" />
+        <activity
+            android:name=".user.activity.UserFavouriteOrgActivity"
+            android:parentActivityName=".user.activity.MineActivity"
+            android:theme="@style/MineAppTheme" />
     </application>
 
 </manifest>

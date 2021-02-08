@@ -21,12 +21,13 @@ import com.yywspace.module_reserve.databinding.ReserveCitySelectActivityBinding
 import java.lang.reflect.Field
 import java.util.stream.Collectors
 
+
 class CitySelectActivity : AppCompatActivity() {
     companion object {
         const val CITY_NAME = "city_name"
     }
 
-    private var binding: ReserveCitySelectActivityBinding? = null
+    private lateinit var binding: ReserveCitySelectActivityBinding
     private var cityListAdapter: CityListAdapter? = null
     private var cityDefaultAdapter: CityDefaultAdapter? = null
     var cityListRecyclerView: RecyclerView? = null
@@ -39,11 +40,10 @@ class CitySelectActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ReserveCitySelectActivityBinding.inflate(layoutInflater);
-        setContentView(binding!!.root)
-        setSupportActionBar(binding!!.reserveToolBar)
+        setContentView(binding.root)
+        setSupportActionBar(binding.reserveToolBar)
         initAdapter()
         initView()
-
         CitiesModel.getCities(this).observe(this, Observer {
             provinceList = it
             provinceListAdapter?.setNewInstance(it.toMutableList().apply {
@@ -51,12 +51,12 @@ class CitySelectActivity : AppCompatActivity() {
                 add(0, default)
             })
         })
-
     }
 
     private fun initAdapter() {
-        cityDefaultAdapter = CityDefaultAdapter(layoutInflater).apply {
-            setNewInstance(mutableListOf("1"))
+        val location = intent.getStringExtra("location") ?: return
+        cityDefaultAdapter = CityDefaultAdapter(layoutInflater,location).apply {
+            setNewInstance(mutableListOf(location))
             onDefaultTagClickListener = {
                 val intent = Intent().apply {
                     putExtra(CITY_NAME, it)
@@ -142,12 +142,12 @@ class CitySelectActivity : AppCompatActivity() {
                         adapter = searchListAdapter
                     }
                 }
-        binding!!.reverseContainer.addView(areaListView)
+        binding.reverseContainer.addView(areaListView)
         supportActionBar?.setDisplayHomeAsUpEnabled(true);//添加默认的返回图标
         supportActionBar?.setHomeButtonEnabled(true); //设置返回键可用
         supportActionBar?.title = "选择城市与地区"
 
-        binding!!.reserveSearchView.apply {
+        binding.reserveSearchView.apply {
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     return onQueryTextChange(query)
@@ -162,7 +162,7 @@ class CitySelectActivity : AppCompatActivity() {
                                 .filter { it.name.contains(newText) }
                                 .collect(Collectors.toList())
                         searchListAdapter?.setNewInstance(resultList)
-                        binding!!.reverseContainer.apply {
+                        binding.reverseContainer.apply {
                             removeAllViews()
                             addView(searchResultView)
                         }
@@ -171,7 +171,7 @@ class CitySelectActivity : AppCompatActivity() {
                         }
                         return true
                     } else {
-                        binding!!.reverseContainer.apply {
+                        binding.reverseContainer.apply {
                             removeAllViews()
                             addView(areaListView)
                         }

@@ -14,7 +14,7 @@ class UserReservationListAdapter : BaseQuickAdapter<Reservation, BaseViewHolder>
     override fun convert(holder: BaseViewHolder, item: Reservation) {
         holder.setVisible(R.id.tvTopLine, holder.adapterPosition != 0)
         holder.setText(R.id.reservation_start_time, TimeUtils.longToString(item.startTime, TimeUtils.formatPattern))
-        holder.setText(R.id.reservation_seat_text, item.seat)
+        holder.setText(R.id.reservation_seat_text, item.seatName)
         holder.setText(R.id.reservation_time_duration,
                 "${(item.endTime - item.startTime) / 60}:${(item.endTime - item.startTime) % 60}")
         holder.setText(R.id.reservation_location_text, item.location)

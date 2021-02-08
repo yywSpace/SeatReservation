@@ -3,8 +3,11 @@ package com.yywspace.module_mine.user.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
@@ -17,25 +20,22 @@ import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.listener.OnResultCallbackListener
+import com.yywspace.module_base.base.BaseActivity
+import com.yywspace.module_base.base.BaseResponse
 import com.yywspace.module_base.bean.User
 import com.yywspace.module_mine.R
 import com.yywspace.module_mine.databinding.MineUserInfoActivityBinding
+import com.yywspace.module_mine.iview.IReservationListView
+import com.yywspace.module_mine.iview.IUserInfoDetailView
+import com.yywspace.module_mine.presenter.ReservationListPresenter
+import com.yywspace.module_mine.presenter.UserInfoDetailPresenter
 import com.yywspace.module_mine.user.GlideEngine
 
 
-class UserInfoDetailActivity : AppCompatActivity() {
+class UserInfoDetailActivity : BaseActivity<IUserInfoDetailView, UserInfoDetailPresenter>(), IUserInfoDetailView {
     var user: User? = null
     private lateinit var binding: MineUserInfoActivityBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = MineUserInfoActivityBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setSupportActionBar(binding.toolBar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
-        initView()
-    }
 
     private fun initView() {
         user = intent.getParcelableExtra("user")
@@ -75,7 +75,7 @@ class UserInfoDetailActivity : AppCompatActivity() {
                                         .error(R.drawable.ic_avatar)//图片加载失败后，显示的图片
                                         .into(binding.infoAvatar)
                                 // TODO: 21-2-1
-                                user?.avatar = path
+                                user?.avatarPath = path
                                 setResultForParent()
                             }
 
@@ -153,6 +153,8 @@ class UserInfoDetailActivity : AppCompatActivity() {
     }
 
     fun setResultForParent() {
+        User.currentUser = user
+        presenter.updateUserInfo(this, user)
         val intent = Intent().apply {
             putExtra("user", user)
         }
@@ -173,5 +175,29 @@ class UserInfoDetailActivity : AppCompatActivity() {
                 true
             }
         }
+    }
+
+    override fun getLayout(inflater: LayoutInflater): View {
+        binding = MineUserInfoActivityBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+    override fun createPresenter(): UserInfoDetailPresenter {
+        return UserInfoDetailPresenter()
+    }
+
+    override fun createView(): IUserInfoDetailView {
+        return this
+    }
+
+    override fun init() {
+        setSupportActionBar(binding.toolBar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        initView()
+    }
+
+    override fun updateUserInfoResult(response: BaseResponse<Any>) {
+        Toast.makeText(this, response.toString(), Toast.LENGTH_SHORT).show();
     }
 }

@@ -115,7 +115,7 @@ open class SceneActivity : AppCompatActivity() {
                             bottomPanel.assembleSubOptPanel(it)
                     }
                 })
-                roomMaps[shapeName] = Room("Room${roomMaps.size}")
+                roomMaps[shapeName] = Room(-1,"Room${roomMaps.size}")
             }
             R.id.scene_replace_background -> {
                 photoSelectLauncherPermission.launch(Manifest.permission.READ_EXTERNAL_STORAGE)

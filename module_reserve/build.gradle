@@ -78,6 +78,10 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation 'com.amap.api:location:5.2.0'
+    implementation 'com.amap.api:map2d:6.0.0'
+
     kapt 'com.alibaba:arouter-compiler:1.5.1'
     implementation project(':module_base')
     implementation 'com.ms-square:expandableTextView:0.1.4'

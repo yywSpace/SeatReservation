@@ -12,7 +12,7 @@ object FavouriteOrganizationModel {
         val liveData = MutableLiveData<List<Organization>>()
         val list: MutableList<Organization> = mutableListOf()
         for (i in 0 until Random.Default.nextInt(5, 9)) {
-            list.add(Organization("河南大学$i", "河南大学-金明校区",
+            list.add(Organization(-1, "河南大学$i", "河南大学-金明校区",
                     "<p >\n" +
                             "                河南大学图书馆是<b>第一批全国古籍重点保护单位</b>创建于1912年，时为河南留学欧美预备学校图书室。\n" +
                             "            </p>\n" +

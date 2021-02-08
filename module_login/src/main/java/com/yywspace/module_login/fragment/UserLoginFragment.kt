@@ -9,10 +9,12 @@ import androidx.datastore.preferences.Preferences
 import androidx.datastore.preferences.createDataStore
 import androidx.datastore.preferences.preferencesKey
 import androidx.lifecycle.lifecycleScope
+import com.alibaba.android.arouter.launcher.ARouter
 import com.yywspace.module_base.AppConfig
 import com.yywspace.module_base.base.BaseFragment
 import com.yywspace.module_base.bean.User
 import com.yywspace.module_base.extensions.setValue
+import com.yywspace.module_base.path.RouterPath
 import com.yywspace.module_login.R
 import com.yywspace.module_login.RegisterActivity
 import com.yywspace.module_login.databinding.LoginFragmentUserBinding
@@ -53,17 +55,19 @@ class UserLoginFragment : BaseFragment<IUserLoginView?, UserLoginPresenter?>(), 
     }
 
     override fun getLoginUserResult(user: User) {
-        val dataStore: DataStore<Preferences> = context!!.createDataStore(
+        val dataStore: DataStore<Preferences> = requireContext().createDataStore(
                 name = AppConfig.SETTING_PREF
         )
         viewLifecycleOwner.lifecycleScope.launch {
-            dataStore.setValue(preferencesKey<String>("username"), user.username)
+            dataStore.setValue(preferencesKey("username"), user.username!!)
             dataStore.setValue(preferencesKey("isLogin"), true)
             dataStore.setValue(preferencesKey("isAdmin"), false)
         }
-
+        User.currentUser = user
         // 跳转界面
         Toast.makeText(mContext, "跳转界面$user", Toast.LENGTH_SHORT).show()
+        // 打开界面
+        ARouter.getInstance().build(RouterPath.MAIN_PATH).navigation()
     }
 
     override fun showError(loginInput: LoginInput, message: String) {

@@ -3,6 +3,7 @@ package com.yywspace.module_reserve.presenter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.yywspace.module_base.base.BasePresenter
+import com.yywspace.module_base.bean.Reservation
 import com.yywspace.module_base.util.LogUtils
 import com.yywspace.module_reserve.iview.IOrganizationListView
 import com.yywspace.module_reserve.iview.IRoomListView
@@ -18,7 +19,21 @@ class SeatListPresenter : BasePresenter<ISeatListView>() {
                 view.getSeatListResult(SeatModel.getLocalSeatList())
                 return@Observer
             }
+            if (Reservation.runningReservation != null) {
+                it.data.forEach { seat->
+                    if(seat.id == Reservation.runningReservation!!.seatId) {
+                        seat.seatStatus = 3 // running
+                    }
+                }
+            }
             view.getSeatListResult(it.data)
+        })
+    }
+
+    fun reserveSeat(reservation: Reservation, owner: LifecycleOwner) {
+        SeatModel.insertReservation(reservation).observe(owner, Observer {
+            Reservation.runningReservation = reservation
+            view.reserveSeat(it)
         })
     }
 }

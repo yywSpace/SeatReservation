@@ -101,7 +101,7 @@ class UserMineFragment : BaseFragment<IUserInfoView, UserInfoPresenter>(), IUser
                 getString(R.string.mine_user_desc_default)
             else user.message
             Glide.with(requireContext())
-                    .load(user.avatar)
+                    .load(user.avatarPath)
                     .error(R.drawable.ic_avatar)//图片加载失败后，显示的图片
                     .into(binding.userAvatar)
         } else {

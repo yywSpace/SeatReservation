@@ -4,10 +4,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.yywspace.module_base.path.RouterPath
 import com.yywspace.seatreservation.databinding.ActivityMainBinding
 
+@Route(path = RouterPath.MAIN_PATH)
 class MainActivity : AppCompatActivity() {
     var mBinding: ActivityMainBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {

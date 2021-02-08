@@ -49,7 +49,7 @@ class AdminLoginFragment : BaseFragment<IUserLoginView?, UserLoginPresenter?>(),
                 name = AppConfig.SETTING_PREF
         )
         viewLifecycleOwner.lifecycleScope.launch {
-            dataStore.setValue(preferencesKey<String>("username"), user.username)
+            dataStore.setValue(preferencesKey<String>("username"), user.username!!)
             dataStore.setValue(preferencesKey("isLogin"), true)
             dataStore.setValue(preferencesKey("isAdmin"), true)
         }
