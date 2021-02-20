@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginBottom="1dp"
+    android:background="#F7F7F7"
+    android:paddingStart="20dp"
+    android:paddingEnd="0dp" >
+
+    <ImageView
+        android:id="@+id/ic_floor"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/ic_floor" />
+
+    <TextView
+        android:id="@+id/floor_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/ic_floor"
+        tools:ignore="RelativeOverlap"
+        tools:text="TextView" />
+</RelativeLayout>

@@ -10,7 +10,7 @@ import com.yywspace.module_base.path.RouterPath
 import com.yywspace.seatreservation.databinding.ActivityMainBinding
 
 @Route(path = RouterPath.MAIN_PATH)
-class MainActivity : AppCompatActivity() {
+class UserMainActivity : AppCompatActivity() {
     var mBinding: ActivityMainBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

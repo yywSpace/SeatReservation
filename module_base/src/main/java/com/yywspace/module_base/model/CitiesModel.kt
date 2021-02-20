@@ -30,7 +30,7 @@ object CitiesModel {
         return liveData
     }
 
-    fun getJson(fileName: String, context: Context): String {
+    private fun getJson(fileName: String, context: Context): String {
         //将json数据变成字符串
         val stringBuilder = StringBuilder()
         try {

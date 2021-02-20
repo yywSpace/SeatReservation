@@ -68,6 +68,7 @@ class UserLoginFragment : BaseFragment<IUserLoginView?, UserLoginPresenter?>(), 
         Toast.makeText(mContext, "跳转界面$user", Toast.LENGTH_SHORT).show()
         // 打开界面
         ARouter.getInstance().build(RouterPath.MAIN_PATH).navigation()
+        requireActivity().finish()
     }
 
     override fun showError(loginInput: LoginInput, message: String) {

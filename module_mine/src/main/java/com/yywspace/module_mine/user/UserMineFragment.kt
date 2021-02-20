@@ -95,6 +95,11 @@ class UserMineFragment : BaseFragment<IUserInfoView, UserInfoPresenter>(), IUser
     private fun initView(user: User?) {
         if (user != null) {
             this.user = user
+            Glide.with(requireActivity())
+                    .load(user.avatarPath)
+                    .placeholder(R.drawable.ic_avatar)//图片加载出来前，显示的图片
+                    .error(R.drawable.ic_avatar)//图片加载失败后，显示的图片
+                    .into(binding.userAvatar)
             binding.userName.text = user.username
             binding.userSex.setImageResource(if (user.sex == 0) R.drawable.ic_woman else R.drawable.ic_man)
             binding.userDesc.text = if (user.message == null || user.message == "")

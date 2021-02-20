@@ -1,14 +1,20 @@
 package com.yywspace.module_base.bean
 
 import android.os.Parcelable
+import com.chad.library.adapter.base.entity.node.BaseExpandNode
+import com.chad.library.adapter.base.entity.node.BaseNode
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
 @Parcelize
-data class Organization(
+class Organization(
         var id: Int = -1,
         var name: String,
         var location: String,
         var desc: String,
+        var imagePath: String,
         var totalSeats: Int,
         var emptySeats: Int,
-        var isFavourite: Boolean) : Parcelable
+        var isActivate: Boolean = false,
+        var isFavourite: Boolean = false, override val childNode: @RawValue MutableList<BaseNode> = mutableListOf()) : Parcelable, BaseExpandNode() {
+}

@@ -1,17 +1,14 @@
-package com.yywspace.module_reserve.model
+package com.yywspace.module_base.model
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import com.yywspace.module_base.base.BaseResponse
 import com.yywspace.module_base.bean.Reservation
 import com.yywspace.module_base.bean.scene.Seat
 import com.yywspace.module_base.net.ServerUtils
 import com.yywspace.module_base.util.JsonUtils
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.util.*
 import kotlin.random.Random
 
 object SeatModel {

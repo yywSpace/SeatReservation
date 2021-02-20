@@ -10,12 +10,19 @@ import android.os.Bundle;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.gyf.immersionbar.ImmersionBar;
 import com.yywspace.module_base.TestFragment;
+import com.yywspace.module_base.net.ServerUtils;
+import com.yywspace.module_base.net.crypto.AESUtil;
+import com.yywspace.module_base.net.crypto.RSAUtil;
 import com.yywspace.module_base.path.RouterPath;
+import com.yywspace.module_base.util.LogUtils;
 import com.yywspace.module_mine.R;
 import com.yywspace.module_mine.StringAdapter;
 import com.yywspace.module_mine.databinding.MineActivityBinding;
 import com.yywspace.module_mine.databinding.MineRecyelerViewTestBinding;
 import com.yywspace.module_mine.user.UserMineFragment;
+
+import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
 
 public class MineActivity extends AppCompatActivity {
 
@@ -30,7 +37,16 @@ public class MineActivity extends AppCompatActivity {
                 .init();
         MineActivityBinding  binding = MineActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        ServerUtils.getCommonApi().getPublicKey().observe(this, stringBaseResponse -> {
+            RSAUtil.PUBLIC_KEY = stringBaseResponse.getData();
+            // 产生AES Key
+            try {
+                AESUtil.SECRET_KEY = AESUtil.generateSecretKey(UUID.randomUUID().toString());
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            LogUtils.d("RSAUtil.PUBLIC_KEY:"+RSAUtil.PUBLIC_KEY);
+        });
         //添加fragment
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction tx = fm.beginTransaction();

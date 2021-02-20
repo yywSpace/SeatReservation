@@ -5,11 +5,8 @@ import androidx.lifecycle.Observer
 import com.yywspace.module_base.base.BasePresenter
 import com.yywspace.module_base.bean.Reservation
 import com.yywspace.module_base.util.LogUtils
-import com.yywspace.module_reserve.iview.IOrganizationListView
-import com.yywspace.module_reserve.iview.IRoomListView
 import com.yywspace.module_reserve.iview.ISeatListView
-import com.yywspace.module_reserve.model.RoomModel
-import com.yywspace.module_reserve.model.SeatModel
+import com.yywspace.module_base.model.SeatModel
 
 class SeatListPresenter : BasePresenter<ISeatListView>() {
     fun getSeatList(owner: LifecycleOwner, id: Int) {

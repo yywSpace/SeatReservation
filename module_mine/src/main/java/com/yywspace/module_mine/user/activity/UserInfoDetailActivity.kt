@@ -2,13 +2,11 @@ package com.yywspace.module_mine.user.activity
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
@@ -25,11 +23,10 @@ import com.yywspace.module_base.base.BaseResponse
 import com.yywspace.module_base.bean.User
 import com.yywspace.module_mine.R
 import com.yywspace.module_mine.databinding.MineUserInfoActivityBinding
-import com.yywspace.module_mine.iview.IReservationListView
 import com.yywspace.module_mine.iview.IUserInfoDetailView
-import com.yywspace.module_mine.presenter.ReservationListPresenter
 import com.yywspace.module_mine.presenter.UserInfoDetailPresenter
-import com.yywspace.module_mine.user.GlideEngine
+import com.yywspace.module_base.GlideEngine
+import com.yywspace.module_base.util.LogUtils
 
 
 class UserInfoDetailActivity : BaseActivity<IUserInfoDetailView, UserInfoDetailPresenter>(), IUserInfoDetailView {
@@ -46,6 +43,11 @@ class UserInfoDetailActivity : BaseActivity<IUserInfoDetailView, UserInfoDetailP
             1 -> "男"
             else -> "未定义"
         }
+        Glide.with(baseContext)
+                .load(user?.avatarPath)
+                .placeholder(R.drawable.ic_avatar)//图片加载出来前，显示的图片
+                .error(R.drawable.ic_avatar)//图片加载失败后，显示的图片
+                .into(binding.infoAvatar)
         binding.infoName.text = user?.username
         if (user?.message == null || user?.message == "") {
             binding.infoMessage.text = getString(R.string.mine_user_desc_default)
@@ -74,7 +76,7 @@ class UserInfoDetailActivity : BaseActivity<IUserInfoDetailView, UserInfoDetailP
                                         .placeholder(R.drawable.ic_avatar)//图片加载出来前，显示的图片
                                         .error(R.drawable.ic_avatar)//图片加载失败后，显示的图片
                                         .into(binding.infoAvatar)
-                                // TODO: 21-2-1
+                                presenter.uploadFile(this@UserInfoDetailActivity, path!!)
                                 user?.avatarPath = path
                                 setResultForParent()
                             }
@@ -198,6 +200,12 @@ class UserInfoDetailActivity : BaseActivity<IUserInfoDetailView, UserInfoDetailP
     }
 
     override fun updateUserInfoResult(response: BaseResponse<Any>) {
+        LogUtils.d(response.toString())
+        Toast.makeText(this, response.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    override fun uploadFileResult(response: BaseResponse<Any>) {
+        LogUtils.d(response.toString())
         Toast.makeText(this, response.toString(), Toast.LENGTH_SHORT).show();
     }
 }

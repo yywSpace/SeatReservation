@@ -22,7 +22,7 @@ object FavouriteOrganizationModel {
                             "                建国后的半个世纪，特别是改革开放以来，随着党和国家对高等教育的重视，图书馆也遇到了发展的大好时机。在学校领导的关心和支持下，经过图书馆人的不懈努力，图书馆发生了巨大的变化。\n" +
                             "                图书馆文献资源总量：411万册。图书馆现设有读者服务窗口43个，其中各类阅览室、书库34余个，阅览座位6647席。\n" +
                             "</p>\n",
-                    100, Random.Default.nextInt(10, 100), Random.Default.nextBoolean()))
+                    "",100, Random.Default.nextInt(10, 100), Random.Default.nextBoolean()))
         }
         liveData.value = list
         return liveData

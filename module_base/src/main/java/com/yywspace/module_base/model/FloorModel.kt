@@ -1,11 +1,8 @@
-package com.yywspace.module_reserve.model
+package com.yywspace.module_base.model
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.yywspace.module_base.base.BaseResponse
-import com.yywspace.module_base.bean.Organization
 import com.yywspace.module_base.bean.scene.Floor
-import com.yywspace.module_base.bean.scene.Room
 import com.yywspace.module_base.net.ServerUtils
 import kotlin.random.Random
 

@@ -14,11 +14,14 @@ import com.yywspace.module_base.bean.scene.Seat;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface SeatReservationApi {
@@ -36,7 +39,6 @@ public interface SeatReservationApi {
     @POST("admin/login")
     @Headers({"contentType: application/json;charset=UTF-8"})
     LiveData<BaseResponse<User>> adminLogin(@Body RequestBody requestBody);
-
 
     @POST("user/register")
     @Headers({"contentType: application/json;charset=UTF-8"})
@@ -71,4 +73,10 @@ public interface SeatReservationApi {
 
     @GET("/reservations/running/{userId}")
     LiveData<BaseResponse<Reservation>> getRunningReservation(@Path("userId") int userId);
+
+    @POST("/file/upload")
+    @Multipart
+    @Headers({"contentType: multipart/form-data"})
+    LiveData<BaseResponse<Object>> uploadFile(@Part List<MultipartBody.Part> partList);
+
 }

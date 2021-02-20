@@ -18,5 +18,10 @@
     <string name="scene_room_seat_count_hint">房间座位数量</string>
     <string name="scene_seat_name_hint">座位名称</string>
     <string name="scene_seat_desc_hint">座位描述</string>
-
+    <string name="scene_org_edit_label">编辑</string>
+    <string name="scene_org_delete_label">删除</string>
+    <string name="scene_child_add_label">添加子项</string>
+    <string name="scene_org_name_hint">机构名称</string>
+    <string name="scene_org_desc_hint">机构描述</string>
+    <string name="scene_org_location_label">机构位置：</string>
 </resources>

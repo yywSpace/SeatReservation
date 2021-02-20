@@ -68,6 +68,11 @@ dependencies {
     api 'com.afollestad.material-dialogs:lifecycle:3.3.0'
     api 'com.afollestad.material-dialogs:input:3.3.0'
 
+    // 地图
+    api 'com.amap.api:location:5.2.0'
+    api 'com.amap.api:map2d:6.0.0'
+    api 'com.amap.api:search:7.7.0'
+
     // 沉浸式
     api 'com.gyf.immersionbar:immersionbar-components:3.0.0'
     api 'com.gyf.immersionbar:immersionbar:3.0.0'

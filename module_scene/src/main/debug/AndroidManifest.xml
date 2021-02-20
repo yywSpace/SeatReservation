@@ -2,8 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.yywspace.module_scene">
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--用于申请调用A-GPS模块-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--声明后台定位权限-->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:name=".AppScene"
@@ -14,7 +25,11 @@
         android:supportsRtl="true"
         android:theme="@style/SceneAppTheme"
         tools:replace="android:icon">
-        <activity android:name=".RoomActivity">
+        <meta-data android:name="com.amap.api.v2.apikey"
+            android:value="570b9d777a8c3ae54d8754930d1d35db" />
+
+        <service android:name="com.amap.api.location.APSService"/>
+        <activity android:name=".SceneMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
