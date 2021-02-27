@@ -6,12 +6,14 @@ import com.chad.library.adapter.base.entity.node.BaseNode
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
-@Parcelize class Room(
+@Parcelize data class Room (
         var id: Int = -1,
+        var floorId: Int = -1,
         var roomName: String = "",
         var roomDesc: String = "",
         var roomLocation: String = "",
         var totalSeats: Int = 0,
         var emptySeats: Int = 0,
-        var roomImage: Bitmap? = null, override val childNode: @RawValue MutableList<BaseNode> = mutableListOf()
+        var roomImagePath: String = "",
+        override val childNode: @RawValue MutableList<BaseNode> = mutableListOf()
 ) : Parcelable, BaseNode()

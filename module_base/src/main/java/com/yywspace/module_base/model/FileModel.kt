@@ -10,7 +10,7 @@ import java.io.File
 
 
 object FileModel {
-    fun uploadFile(path: String): LiveData<BaseResponse<Any>> {
+    fun uploadFile(path: String): LiveData<BaseResponse<String>> {
         // 参数添加
         val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
         val file = File(path);

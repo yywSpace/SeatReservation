@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.bumptech.glide.Glide
+import com.yywspace.module_base.AppConfig
 import com.yywspace.module_base.base.BaseActivity
 import com.yywspace.module_base.bean.Organization
 import com.yywspace.module_base.bean.scene.Floor
@@ -60,6 +62,13 @@ class OrganizationDetailActivity : BaseActivity<IFloorListView, FloorListPresent
         supportActionBar?.setDisplayHomeAsUpEnabled(true) //添加默认的返回图标
         supportActionBar?.setHomeButtonEnabled(true) //设置返回键可用
         supportActionBar?.title = organization.name
+
+        Glide.with(this)
+                .load(AppConfig.BASE_URL + "upload/" + organization.imagePath)
+                .placeholder(R.drawable.ic_bg)
+                .error(R.drawable.ic_bg)
+                .into(binding.organizationImage)
+
         binding.expandOrganizationDesc.text =
                 Html.fromHtml(organization.desc ?: "", Html.FROM_HTML_MODE_LEGACY)
         binding.organizationLocation.apply {

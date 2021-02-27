@@ -18,6 +18,7 @@ import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.listener.OnResultCallbackListener
+import com.yywspace.module_base.AppConfig
 import com.yywspace.module_base.base.BaseActivity
 import com.yywspace.module_base.base.BaseResponse
 import com.yywspace.module_base.bean.User
@@ -44,7 +45,7 @@ class UserInfoDetailActivity : BaseActivity<IUserInfoDetailView, UserInfoDetailP
             else -> "未定义"
         }
         Glide.with(baseContext)
-                .load(user?.avatarPath)
+                .load(AppConfig.BASE_URL + "upload/" + user?.avatarPath)
                 .placeholder(R.drawable.ic_avatar)//图片加载出来前，显示的图片
                 .error(R.drawable.ic_avatar)//图片加载失败后，显示的图片
                 .into(binding.infoAvatar)
@@ -77,8 +78,6 @@ class UserInfoDetailActivity : BaseActivity<IUserInfoDetailView, UserInfoDetailP
                                         .error(R.drawable.ic_avatar)//图片加载失败后，显示的图片
                                         .into(binding.infoAvatar)
                                 presenter.uploadFile(this@UserInfoDetailActivity, path!!)
-                                user?.avatarPath = path
-                                setResultForParent()
                             }
 
                             override fun onCancel() {
@@ -154,7 +153,7 @@ class UserInfoDetailActivity : BaseActivity<IUserInfoDetailView, UserInfoDetailP
         }
     }
 
-    fun setResultForParent() {
+    private fun setResultForParent() {
         User.currentUser = user
         presenter.updateUserInfo(this, user)
         val intent = Intent().apply {
@@ -204,8 +203,13 @@ class UserInfoDetailActivity : BaseActivity<IUserInfoDetailView, UserInfoDetailP
         Toast.makeText(this, response.toString(), Toast.LENGTH_SHORT).show();
     }
 
-    override fun uploadFileResult(response: BaseResponse<Any>) {
+    override fun uploadFileResult(response: BaseResponse<String>) {
         LogUtils.d(response.toString())
-        Toast.makeText(this, response.toString(), Toast.LENGTH_SHORT).show();
+        if (response.code == 1) {
+            user?.avatarPath = response.data
+            setResultForParent()
+        }
+        else
+            Toast.makeText(this, "图像上传失败", Toast.LENGTH_SHORT).show();
     }
 }

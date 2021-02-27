@@ -36,6 +36,7 @@ open class SceneActivity : AppCompatActivity() {
     companion object {
         var shapeCount = 0;
     }
+
     lateinit var roomMaps: MutableMap<String, Room>
     lateinit var binding: SceneActivityBinding
     var shape: Shape? = null
@@ -115,7 +116,7 @@ open class SceneActivity : AppCompatActivity() {
                             bottomPanel.assembleSubOptPanel(it)
                     }
                 })
-                roomMaps[shapeName] = Room(-1,"Room${roomMaps.size}")
+                roomMaps[shapeName] = Room(-1, -1, "Room${roomMaps.size}")
             }
             R.id.scene_replace_background -> {
                 photoSelectLauncherPermission.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -203,8 +204,9 @@ open class SceneActivity : AppCompatActivity() {
 
                 roomImageView = customView.findViewById<ImageView>(R.id.shape_room_image)
                         .apply {
-                            if (room?.roomImage != null) {
-                                setImageBitmap(room.roomImage)
+                            if (room?.roomImagePath != null || room?.roomImagePath?.isNotEmpty() == true) {
+                                // TODO: 21-2-20 加载图片 
+//                                setImageBitmap(room.roomImage)
                             }
                             setOnClickListener {
                                 photoSelectLauncherRoomImagePermission.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -275,7 +277,8 @@ open class SceneActivity : AppCompatActivity() {
     private val photoSelectLauncherRoomImage = registerForActivityResult(PhotoSelectResultContract()) { result ->
         if (result == null)
             return@registerForActivityResult
-        roomMaps[shape?.name]?.roomImage = result
+        // TODO: 21-2-20 更改图片选择逻辑
+        roomMaps[shape?.name]?.roomImagePath = ""// = result
         roomImageView.setImageBitmap(result)
     }
 

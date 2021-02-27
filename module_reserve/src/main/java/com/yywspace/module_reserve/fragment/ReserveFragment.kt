@@ -23,6 +23,7 @@ import com.yywspace.module_base.base.BaseFragment
 import com.yywspace.module_base.base.BaseResponse
 import com.yywspace.module_base.bean.Organization
 import com.yywspace.module_base.bean.Reservation
+import com.yywspace.module_base.bean.User
 import com.yywspace.module_base.net.ServerUtils
 import com.yywspace.module_base.path.RouterPath
 import com.yywspace.module_base.util.LogUtils
@@ -76,7 +77,7 @@ class ReserveFragment : BaseFragment<IOrganizationListView, OrganizationListPres
                     val searchRes = organizationListAdapter!!.data
                             .stream()
                             .filter {
-                                it.name.contains(newText) || it.location.contains(newText)
+                                it.name.contains(newText)
                             }.collect(Collectors.toList())
                     resultListAdapter?.setNewInstance(searchRes.toMutableList())
                     binding!!.recyclerView.adapter = resultListAdapter
@@ -237,7 +238,10 @@ class ReserveFragment : BaseFragment<IOrganizationListView, OrganizationListPres
                                 intent.putExtra("location", aMapLoc.city)
                                 activityLauncher.launch(intent)
                             }
-                            presenter.getOrganizationList(this@ReserveFragment)
+                            val userId = if (User.currentUser == null) 1 else User.currentUser!!.id
+                            if (userId != null) {
+                                presenter.getOrganizationList(this@ReserveFragment, aMapLoc.city, userId)
+                            }
                         } else {
                             //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                             Log.e("AmapError", "location Error, ErrCode:"
@@ -265,10 +269,12 @@ class ReserveFragment : BaseFragment<IOrganizationListView, OrganizationListPres
 
     override fun getOrganizationListResult(organizationList: List<Organization>?) {
         LogUtils.d(organizationList.toString())
-        if (organizationList == null)
-            organizationListAdapter?.setEmptyView(R.layout.base_empty_view)
-        else
+        if (organizationList != null && organizationList.isNotEmpty())
             organizationListAdapter?.setNewInstance(organizationList.toMutableList())
+        else {
+            organizationListAdapter?.setNewInstance(mutableListOf())
+            organizationListAdapter?.setEmptyView(R.layout.base_empty_view)
+        }
         binding!!.swipeRefreshLayout.isRefreshing = false;
     }
 
@@ -286,6 +292,12 @@ class ReserveFragment : BaseFragment<IOrganizationListView, OrganizationListPres
     private val activityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
         if (activityResult.resultCode == Activity.RESULT_OK) {
             val result = activityResult.data?.getStringExtra(CitySelectActivity.CITY_NAME)
+            if (result != null) {
+                val userId = if (User.currentUser == null) 1 else User.currentUser!!.id
+                if (userId != null) {
+                    presenter.getOrganizationList(this@ReserveFragment, result, userId)
+                }
+            }
             binding!!.reserveLocation.text = result
         }
     }

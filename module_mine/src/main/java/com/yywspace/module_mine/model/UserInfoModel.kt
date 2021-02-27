@@ -13,7 +13,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 object UserInfoModel {
     fun getUserInfo(): LiveData<User?> {
         val liveData = MutableLiveData<User?>()
-        liveData.value = User.currentUser ?: User("yywSpace", "", 1)
+        liveData.value = User.currentUser ?: User(1,"yywSpace", "", 1)
         return liveData
     }
 

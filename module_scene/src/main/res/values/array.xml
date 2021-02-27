@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="scene_org_status_array">
+        <item>激活</item>
+        <item>禁止</item>
+    </string-array>
+
+</resources>

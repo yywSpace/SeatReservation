@@ -9,9 +9,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.bumptech.glide.Glide
+import com.yywspace.module_base.AppConfig
 import com.yywspace.module_base.base.BaseFragment
 import com.yywspace.module_base.bean.User
 import com.yywspace.module_base.path.RouterPath
+import com.yywspace.module_base.util.LogUtils
 import com.yywspace.module_mine.R
 import com.yywspace.module_mine.databinding.MineUserFragmentLayoutBinding
 import com.yywspace.module_mine.iview.IUserInfoView
@@ -40,20 +42,27 @@ class UserMineFragment : BaseFragment<IUserInfoView, UserInfoPresenter>(), IUser
     override fun init() {
         itemListAdapter = UserInfItemListAdapter().apply {
             setOnItemClickListener { adapter, view, position ->
+
                 when ((adapter.data[position] as UserInfoItem).name) {
                     "机构收藏" -> {
-                        startActivity(Intent(requireContext(), UserFavouriteOrgActivity::class.java))
+                        startActivity(Intent(requireContext(), UserFavouriteOrgActivity::class.java).apply {
+                            putExtra("user_id", user?.id)
+                        })
                         Toast.makeText(requireContext(), "机构收藏", Toast.LENGTH_SHORT).show();
                     }
                     "预约记录" -> {
-                        startActivity(Intent(requireContext(), UserInfoReservationListActivity::class.java))
+                        startActivity(Intent(requireContext(), UserInfoReservationListActivity::class.java).apply {
+                            putExtra("user_id", user?.id)
+                        })
                         Toast.makeText(requireContext(), "预约记录", Toast.LENGTH_SHORT).show();
                     }
                     "违约记录" -> {
                         Toast.makeText(requireContext(), "违约记录", Toast.LENGTH_SHORT).show();
                     }
                     "统计概况" -> {
-                        startActivity(Intent(requireContext(), UserInfoStatisticAnalysisActivity::class.java))
+                        startActivity(Intent(requireContext(), UserInfoStatisticAnalysisActivity::class.java).apply {
+                            putExtra("user_id", user?.id)
+                        })
                         Toast.makeText(requireContext(), "统计概况", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -95,20 +104,17 @@ class UserMineFragment : BaseFragment<IUserInfoView, UserInfoPresenter>(), IUser
     private fun initView(user: User?) {
         if (user != null) {
             this.user = user
-            Glide.with(requireActivity())
-                    .load(user.avatarPath)
-                    .placeholder(R.drawable.ic_avatar)//图片加载出来前，显示的图片
-                    .error(R.drawable.ic_avatar)//图片加载失败后，显示的图片
+            LogUtils.d(AppConfig.BASE_URL + "upload/" + user.avatarPath)
+            Glide.with(requireContext())
+                    .load(AppConfig.BASE_URL + "upload/" + user.avatarPath)
+                    .placeholder(R.drawable.ic_avatar)
+                    .error(R.drawable.ic_avatar)
                     .into(binding.userAvatar)
             binding.userName.text = user.username
             binding.userSex.setImageResource(if (user.sex == 0) R.drawable.ic_woman else R.drawable.ic_man)
             binding.userDesc.text = if (user.message == null || user.message == "")
                 getString(R.string.mine_user_desc_default)
             else user.message
-            Glide.with(requireContext())
-                    .load(user.avatarPath)
-                    .error(R.drawable.ic_avatar)//图片加载失败后，显示的图片
-                    .into(binding.userAvatar)
         } else {
             binding.userName.text = getString(R.string.mine_user_name_not_login)
             binding.userSex.visibility = View.GONE

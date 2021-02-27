@@ -36,7 +36,7 @@ import java.nio.file.Paths
 class UserInfoStatisticAnalysisActivity : BaseActivity<IStatisticView, StatisticPresenter>(), IStatisticView {
     private lateinit var binding: MineUserInfoStatisticAnalysisBinding
     lateinit var pieItemListAdapter: UserInfPieChartItemListAdapter
-
+    var userId = -1
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.mine_statistic_menu, menu)
@@ -127,6 +127,7 @@ class UserInfoStatisticAnalysisActivity : BaseActivity<IStatisticView, Statistic
     }
 
     override fun init() {
+        userId = intent.getIntExtra("user_id", 1)
         setSupportActionBar(binding.toolBar)
         supportActionBar?.title = "统计分析"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

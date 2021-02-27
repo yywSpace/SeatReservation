@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
+import com.bumptech.glide.Glide
+import com.yywspace.module_base.AppConfig
 import com.yywspace.module_base.base.BaseActivity
 import com.yywspace.module_base.base.BaseResponse
 import com.yywspace.module_base.bean.Reservation
@@ -48,12 +50,17 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
 
     override fun init() {
         setContentView(binding.root)
-        room = intent.getParcelableExtra<Room>("room") ?: return
+        room = intent.getParcelableExtra("room") ?: return
         binding.reverseToolbar.setTitleTextColor(Color.BLACK)
         setSupportActionBar(binding.reverseToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true) //添加默认的返回图标
         supportActionBar?.setHomeButtonEnabled(true) //设置返回键可用
         supportActionBar?.title = room.roomName
+        Glide.with(this)
+                .load(AppConfig.BASE_URL + "upload/" + room.roomImagePath)
+                .placeholder(R.drawable.ic_bg)
+                .error(R.drawable.ic_bg)
+                .into(binding.roomImage)
         binding.expandRoomDesc.text =
                 Html.fromHtml(room.roomDesc, Html.FROM_HTML_MODE_LEGACY)
         initAdapter()
@@ -158,7 +165,6 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
                         Toast.makeText(this@RoomDetailActivity, "当前已有预订", Toast.LENGTH_SHORT).show();
                         return@positiveButton
                     }
-                    // TODO: 21-2-7 添加userId
                     val userId = if (User.currentUser == null) 2 else User.currentUser!!.id
                     val location = intent.getStringExtra("location")
                     presenter.reserveSeat(Reservation(-1, userId!!, seat.id, seat.seatName, System.currentTimeMillis(), -1, location
@@ -194,16 +200,19 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
 //            binding.swipeRefreshLayout.isRefreshing = false;
     }
 
-    override fun reserveSeat(response: BaseResponse<Any>) {
+    override fun reserveSeatResult(response: BaseResponse<Any>) {
         when (response.code) {
             1 -> {
                 presenter.getSeatList(this, room.id)
             }
             4000 -> {//SEAT_IS_BUSY(4000, "座位繁忙"),
-                Toast.makeText(baseContext, "座位繁忙", Toast.LENGTH_SHORT).show();
+                Toast.makeText(baseContext, "座位繁忙", Toast.LENGTH_SHORT).show()
             }
             4001 -> {//SEAT_IS_FORBIDDEN(4001, "座位不可以");
-                Toast.makeText(baseContext, "座位不可用", Toast.LENGTH_SHORT).show();
+                Toast.makeText(baseContext, "座位不可用", Toast.LENGTH_SHORT).show()
+            }
+            4002 -> {//RESERVATION_IS_RUNNING(4002, "预约正在进行");
+                Toast.makeText(baseContext, "当前预约正在进行", Toast.LENGTH_SHORT).show();
             }
         }
     }

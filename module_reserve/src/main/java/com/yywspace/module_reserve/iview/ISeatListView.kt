@@ -8,5 +8,5 @@ import com.yywspace.module_base.bean.scene.Seat
 
 interface ISeatListView : BaseViewImp {
     fun getSeatListResult(seatList: List<Seat>?)
-    fun reserveSeat(response: BaseResponse<Any>)
+    fun reserveSeatResult(response: BaseResponse<Any>)
 }

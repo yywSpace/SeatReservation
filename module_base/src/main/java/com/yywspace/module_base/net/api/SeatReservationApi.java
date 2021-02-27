@@ -17,12 +17,15 @@ import java.util.Map;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface SeatReservationApi {
     @GET("user/{id}")
@@ -47,36 +50,68 @@ public interface SeatReservationApi {
     @GET("/common/getPublicKey")
     LiveData<BaseResponse<String>> getPublicKey();
 
-    @GET("/organizations")
-    LiveData<BaseResponse<List<Organization>>> getOrganizationList();
+    @GET("/organization/list")
+    LiveData<BaseResponse<List<Organization>>> getOrganizationListByLocation(@Query("location") String location, @Query("userId") int userId);
 
-    @GET("/organizations/floors/{id}")
-    LiveData<BaseResponse<List<Floor>>> getFloorList(@Path("id") int id);
+    @GET("/organization/favourites/{userId}")
+    LiveData<BaseResponse<List<Organization>>> getFavouriteOrganizationList(@Path("userId") Integer userId);
 
-    @GET("/organizations/rooms/{id}")
-    LiveData<BaseResponse<List<Room>>> getRoomList(@Path("id") int id);
+    @GET("/organization/list/{group}")
+    LiveData<BaseResponse<List<Organization>>> getOrganizationListByGroup(@Path("group") String group);
 
+    @POST("/organization")
+    LiveData<BaseResponse<Integer>> insertOrganization(@Body RequestBody requestBody);
 
-    @GET("/organizations/seats/{id}")
-    LiveData<BaseResponse<List<Seat>>> getSeatList(@Path("id") int id);
+    @PUT("/organization")
+    LiveData<BaseResponse<Object>> updateOrganization(@Body RequestBody requestBody);
 
-    @GET("/reservations/{id}")
-    LiveData<BaseResponse<List<Reservation>>> getReservationList(@Path("id") int id);
+    @DELETE("/organization/{orgId}")
+    LiveData<BaseResponse<Object>> deleteOrganization(@Path("orgId") int orgId);
 
-    @POST("/reservations")
-    @Headers({"contentType: application/json;charset=UTF-8"})
-    LiveData<BaseResponse<Object>> insertReservation(@Body RequestBody requestBody);
-
-    @POST("/organizations/favourite")
+    @POST("/organization/favourite")
     @Headers({"contentType: application/json;charset=UTF-8"})
     LiveData<BaseResponse<Object>> makeOrganizationFavourite(@Body RequestBody requestBody);
 
-    @GET("/reservations/running/{userId}")
+    @GET("/floor/list/{orgId}")
+    LiveData<BaseResponse<List<Floor>>> getFloorList(@Path("orgId") int orgId);
+
+    @POST("/floor")
+    LiveData<BaseResponse<Integer>> insertFloor(@Body RequestBody requestBody);
+
+    @PUT("/floor")
+    LiveData<BaseResponse<Object>> updateFloor(@Body RequestBody requestBody);
+
+    @DELETE("/floor/{floorId}")
+    LiveData<BaseResponse<Object>> deleteFloor(@Path("floorId") int floorId);
+
+    @POST("/room")
+    LiveData<BaseResponse<Integer>> insertRoom(@Body RequestBody requestBody);
+
+    @PUT("/room")
+    LiveData<BaseResponse<Object>> updateRoom(@Body RequestBody requestBody);
+
+    @DELETE("/room/{roomId}")
+    LiveData<BaseResponse<Object>> deleteRoom(@Path("roomId") int roomId);
+
+    @GET("/room/list/{floorId}")
+    LiveData<BaseResponse<List<Room>>> getRoomList(@Path("floorId") int id);
+
+    @GET("/seats/list/{roomId}")
+    LiveData<BaseResponse<List<Seat>>> getSeatList(@Path("roomId") int roomId);
+
+    @GET("/reservation/list/{id}")
+    LiveData<BaseResponse<List<Reservation>>> getReservationList(@Path("id") int id);
+
+    @POST("/reservation")
+    @Headers({"contentType: application/json;charset=UTF-8"})
+    LiveData<BaseResponse<Object>> insertReservation(@Body RequestBody requestBody);
+
+    @GET("/reservation/running/{userId}")
     LiveData<BaseResponse<Reservation>> getRunningReservation(@Path("userId") int userId);
 
     @POST("/file/upload")
     @Multipart
     @Headers({"contentType: multipart/form-data"})
-    LiveData<BaseResponse<Object>> uploadFile(@Part List<MultipartBody.Part> partList);
+    LiveData<BaseResponse<String>> uploadFile(@Part List<MultipartBody.Part> partList);
 
 }

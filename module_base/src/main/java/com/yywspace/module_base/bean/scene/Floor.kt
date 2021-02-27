@@ -8,10 +8,11 @@ import kotlinx.android.parcel.RawValue
 
 
 @Parcelize
-class Floor(
+data class Floor(
         var id: Int,
+        var organizationId: Int,
         var floorName: String,
-        var totalSeats: Int,
-        var emptySeats: Int) : Parcelable, BaseExpandNode() {
+        var totalSeats: Int = 0,
+        var emptySeats: Int = 0) : Parcelable, BaseExpandNode() {
     override val childNode: @RawValue MutableList<BaseNode> = mutableListOf()
 }

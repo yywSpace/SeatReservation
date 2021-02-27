@@ -24,6 +24,8 @@ class UserInfoReservationListActivity : BaseActivity<IReservationListView, Reser
     lateinit var binding: MineReservationListActivityBinding
     lateinit var userInfoReservationList: UserReservationListAdapter
     lateinit var resultReservationList: UserReservationListAdapter
+    var userId = 1
+
     override fun getLayout(inflater: LayoutInflater): View {
         binding = MineReservationListActivityBinding.inflate(layoutInflater)
         return binding.root
@@ -38,6 +40,7 @@ class UserInfoReservationListActivity : BaseActivity<IReservationListView, Reser
     }
 
     override fun init() {
+        userId = intent.getIntExtra("user_id", 1)
         setSupportActionBar(binding.toolBar)
         supportActionBar?.title = "预约记录"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -47,7 +50,7 @@ class UserInfoReservationListActivity : BaseActivity<IReservationListView, Reser
             layoutManager = LinearLayoutManager(this@UserInfoReservationListActivity)
             adapter = userInfoReservationList
         }
-        presenter.getReservationList(this)
+        presenter.getReservationList(this, userId)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

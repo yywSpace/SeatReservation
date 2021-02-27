@@ -15,13 +15,17 @@ class UserReservationListAdapter : BaseQuickAdapter<Reservation, BaseViewHolder>
         holder.setVisible(R.id.tvTopLine, holder.adapterPosition != 0)
         holder.setText(R.id.reservation_start_time, TimeUtils.longToString(item.startTime, TimeUtils.formatPattern))
         holder.setText(R.id.reservation_seat_text, item.seatName)
-        holder.setText(R.id.reservation_time_duration,
-                "${(item.endTime - item.startTime) / 60}:${(item.endTime - item.startTime) % 60}")
+        val allSeconds = (item.endTime - item.startTime) / 1000
+        val hour = allSeconds / 60 / 60
+        val minute = allSeconds / 60
+        val seconds = allSeconds % 60
+        holder.setText(R.id.reservation_time_duration, "${hour}:${minute}:${seconds}")
         holder.setText(R.id.reservation_location_text, item.location)
         when (item.status) {
             0 -> {
                 holder.setText(R.id.reservation_status_label, "")
                 holder.setTextColor(R.id.reservation_status_label, Color.BLUE)
+                holder.setText(R.id.reservation_time_duration, "∞")
                 holder.setBackgroundResource(R.id.reservation_status_icon, R.drawable.ic_run)
             }
             1 -> {

@@ -1,15 +1,17 @@
 package com.yywspace.module_scene.adapter
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.text.InputType
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LifecycleOwner
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
+import com.afollestad.materialdialogs.input.input
 import com.amap.api.services.core.LatLonPoint
 import com.amap.api.services.geocoder.GeocodeResult
 import com.amap.api.services.geocoder.GeocodeSearch
@@ -24,20 +26,29 @@ import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.listener.OnResultCallbackListener
+import com.yywspace.module_base.AppConfig
 import com.yywspace.module_base.GlideEngine
+import com.yywspace.module_base.base.BaseResponse
 import com.yywspace.module_base.bean.Organization
 import com.yywspace.module_base.bean.scene.Floor
 import com.yywspace.module_scene.MapLocationSelectDialogFragment
 import com.yywspace.module_scene.MapShowDialogFragment
 import com.yywspace.module_scene.R
 import com.yywspace.module_scene.databinding.SceneOrgEditDialogBinding
+import com.yywspace.module_scene.iview.IOrganizationProviderView
+import com.yywspace.module_scene.presenter.OrganizationProviderPresenter
 import org.jetbrains.annotations.NotNull
 
-class OrganizationProvider : BaseNodeProvider() {
+class OrganizationProvider(private val activity: AppCompatActivity) : BaseNodeProvider(), IOrganizationProviderView {
+    private val presenter: OrganizationProviderPresenter = OrganizationProviderPresenter()
     override val itemViewType: Int
         get() = 1
     override val layoutId: Int
         get() = R.layout.scene_tree_item_org
+
+    init {
+        presenter.attachView(this)
+    }
 
     override fun convert(@NotNull helper: BaseViewHolder, @NotNull item: BaseNode) {
         val organization: Organization = item as Organization
@@ -53,41 +64,70 @@ class OrganizationProvider : BaseNodeProvider() {
     }
 
     override fun onLongClick(helper: BaseViewHolder, view: View, data: BaseNode, position: Int): Boolean {
+        val org = data as Organization
         val optionMenuDialog = MaterialDialog(view.context).apply {
             customView(R.layout.scene_tree_item_dialog)
         }
 
         val customView = optionMenuDialog.getCustomView()
         customView.findViewById<TextView>(R.id.scene_org_edit).setOnClickListener {
-            orgEditDialogShow(view.context, data)
+            orgEditDialogShow(view.context, data, position)
             optionMenuDialog.dismiss()
         }
         customView.findViewById<TextView>(R.id.scene_org_delete).setOnClickListener {
-            getAdapter()?.remove(data)
+            presenter.deleteOrganization(activity, org)
             optionMenuDialog.dismiss()
-
         }
+
         customView.findViewById<TextView>(R.id.scene_child_add).setOnClickListener {
-            getAdapter()?.nodeAddData(data, Floor(-1, "请修改楼层信息", 10, 100))
+            val floor = Floor(-1, org.id, "请修改楼层信息", 0, 0)
+            presenter.insertFloor(activity, floor, org)
             optionMenuDialog.dismiss()
+        }
+        customView.findViewById<TextView>(R.id.scene_child_multi_add).setOnClickListener {
+            MaterialDialog(context).show {
+                title(text = "批量添加楼层数量")
+                input(allowEmpty = false, inputType = InputType.TYPE_CLASS_NUMBER) { dialog, text ->
+                    val num = text.toString().toInt()
+                    for (i in 0 until num) {
+                        getAdapter()?.nodeAddData(data, Floor(-1, org.id, "请修改楼层信息$i", 0, 0))
+                    }
+                    optionMenuDialog.dismiss()
+                }
+                positiveButton(R.string.base_dialog_confirm)
+                negativeButton(R.string.base_dialog_cancel)
+            }
         }
         optionMenuDialog.show()
         return true
     }
 
-
     override fun onClick(helper: BaseViewHolder, view: View, data: BaseNode, position: Int) {
         getAdapter()?.expandOrCollapse(position, animate = true, notify = true, parentPayload = NodeTreeAdapter.EXPAND_COLLAPSE_PAYLOAD);
     }
 
-    private fun orgEditDialogShow(context: Context, data: BaseNode) {
+    private fun orgEditDialogShow(context: Context, data: BaseNode, position: Int) {
         val organization = data as Organization
         var latLon: LatLonPoint? = null
+        if (organization.location.isNotEmpty()) {
+            val locationArray = organization.location.split(":")
+            if (locationArray.size > 1) {
+                val latLonArray = locationArray[1].split(",")
+                latLon = LatLonPoint(latLonArray[0].toDouble(), latLonArray[1].toDouble())
+            }
+        }
+        var imagePath: String? = null
+        var location: String? = null
         val editDialog = MaterialDialog(context).apply {
             title(text = "机构编辑")
             customView(R.layout.scene_org_edit_dialog)
         }
         val binding = SceneOrgEditDialogBinding.bind(editDialog.getCustomView())
+        Glide.with(context)
+                .load(AppConfig.BASE_URL + "upload/" + organization.imagePath)
+                .placeholder(R.drawable.ic_placeholder)
+                .error(R.drawable.ic_placeholder)
+                .into(binding.orgImage)
         binding.orgName.editText?.setText(organization.name)
         binding.orgDesc.editText?.setText(organization.desc)
         binding.orgLocation.text = organization.location.split(":")[0]
@@ -95,7 +135,7 @@ class OrganizationProvider : BaseNodeProvider() {
             if (latLon != null) {
                 MapShowDialogFragment
                         .newInstance(latLon!!.latitude, latLon!!.longitude, organization.name)
-                        .show((context as AppCompatActivity).supportFragmentManager, "map")
+                        .show(activity.supportFragmentManager, "map")
             }
         }
         binding.orgMapIcon.setOnClickListener {
@@ -104,38 +144,39 @@ class OrganizationProvider : BaseNodeProvider() {
                     override fun onRegeocodeSearched(result: RegeocodeResult?, p1: Int) {
                         val formatAddress = result?.regeocodeAddress?.formatAddress ?: return
                         binding.orgLocation.text = formatAddress
-                        organization.location = "${formatAddress}:${result.regeocodeQuery.point.latitude},${result.regeocodeQuery.point.longitude}"
+                        location = "${formatAddress}:${result.regeocodeQuery.point.latitude},${result.regeocodeQuery.point.longitude}"
                     }
 
                     override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
                     }
                 })
-
             }
+
             val dialog = MapLocationSelectDialogFragment()
             dialog.onPositiveButtonClick = {
                 latLon = LatLonPoint(it!!.latitude, it.longitude)
                 val query = RegeocodeQuery(latLon, 50f, GeocodeSearch.AMAP)
                 geocodeSearch.getFromLocationAsyn(query)
             }
-            dialog.show((context as AppCompatActivity).supportFragmentManager, "location")
+            dialog.show(activity.supportFragmentManager, "location")
         }
+
         binding.orgImage.setOnClickListener {
             PictureSelector.create(context as Activity)
                     .openGallery(PictureMimeType.ofAll())
                     .selectionMode(PictureConfig.SINGLE)
                     .isEnableCrop(true)
                     .cropImageWideHigh(200, 200)
-                    .withAspectRatio(1, 1)//裁剪比例
+                    .withAspectRatio(1, 1) //裁剪比例
                     .rotateEnabled(false)
                     .imageEngine(GlideEngine.createGlideEngine())
                     .forResult(object : OnResultCallbackListener<LocalMedia?> {
                         override fun onResult(result: List<LocalMedia?>) {
                             // 结果回调
-                            if (result.isEmpty())
-                                return
+                            if (result.isEmpty()) return
                             val media = result[0]
                             val path = if (media?.isCut == true) media.cutPath else media?.path
+                            imagePath = path
                             Glide.with(context)
                                     .load(path)
                                     .into(binding.orgImage)
@@ -163,8 +204,12 @@ class OrganizationProvider : BaseNodeProvider() {
                 }
                 organization.name = binding.orgName.editText?.text.toString()
                 organization.desc = binding.orgDesc.editText?.text.toString()
-                organization.location = binding.orgLocation.text.toString()
-                // TODO: 21-2-19 联网
+                organization.location = location.toString()
+                if (imagePath != null) {
+                    presenter.uploadFile(activity, imagePath!!, organization)
+                }
+                presenter.updateOrganization(activity, organization)
+                getAdapter()?.notifyItemChanged(position)
                 dismiss()
             }
             negativeButton(R.string.scene_select_cal) {
@@ -173,5 +218,38 @@ class OrganizationProvider : BaseNodeProvider() {
                 dismiss()
             }
         }
+    }
+
+    override fun insertFloorResult(response: BaseResponse<Int>, floor: Floor, organization: Organization) {
+        if (response.code == 1) {
+            floor.id = response.data
+            getAdapter()?.nodeAddData(organization, floor)
+        } else {
+            Toast.makeText(context, "插入失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    override fun updateOrganizationResult(response: BaseResponse<Any>) {
+        if (response.code == 1) {
+            Toast.makeText(context, "更新成功", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "更新失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    override fun deleteOrganizationResult(response: BaseResponse<Any>, organization: Organization) {
+        if (response.code == 1) {
+            getAdapter()?.remove(organization)
+        } else {
+            Toast.makeText(context, "删除失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    override fun uploadFileResult(response: BaseResponse<String>, organization: Organization) {
+        if (response.code == 1) {
+            organization.imagePath = response.data
+            presenter.updateOrganization(activity, organization)
+        } else
+            Toast.makeText(context, "图像上传失败", Toast.LENGTH_SHORT).show();
     }
 }

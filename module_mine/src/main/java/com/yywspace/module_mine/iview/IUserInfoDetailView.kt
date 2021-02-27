@@ -7,5 +7,5 @@ import com.yywspace.module_base.bean.scene.Room
 
 interface IUserInfoDetailView : BaseViewImp {
     fun updateUserInfoResult(response: BaseResponse<Any>)
-    fun uploadFileResult(response: BaseResponse<Any>)
+    fun uploadFileResult(response: BaseResponse<String>)
 }

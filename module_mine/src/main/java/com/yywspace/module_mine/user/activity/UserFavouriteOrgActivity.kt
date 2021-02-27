@@ -15,6 +15,7 @@ import com.howshea.roundcornerimageview.RoundCornerImageView
 import com.yywspace.module_base.base.BaseActivity
 import com.yywspace.module_base.bean.Organization
 import com.yywspace.module_base.bean.Reservation
+import com.yywspace.module_base.bean.User
 import com.yywspace.module_base.path.RouterPath.ORG_DETAIL_PATH
 import com.yywspace.module_mine.R
 import com.yywspace.module_mine.databinding.MineFavourtieOrgActivityBinding
@@ -28,6 +29,7 @@ class UserFavouriteOrgActivity : BaseActivity<IFavouriteReservationListView, Fav
     private var binding: MineFavourtieOrgActivityBinding? = null
     private var organizationListAdapter: FavouriteOrganizationListAdapter? = null
     private var resultListAdapter: FavouriteOrganizationListAdapter? = null
+    private var userId = -1
     private var isReverse = false
     private var isSortByName = true
     private var isSortByPerson = false
@@ -119,6 +121,7 @@ class UserFavouriteOrgActivity : BaseActivity<IFavouriteReservationListView, Fav
     }
 
     override fun init() {
+        userId = intent.getIntExtra("user_id", 1)
         setSupportActionBar(binding!!.toolBar)
         supportActionBar?.title = "机构收藏"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -126,14 +129,14 @@ class UserFavouriteOrgActivity : BaseActivity<IFavouriteReservationListView, Fav
         initAdapter()
         binding!!.swipeRefreshLayout.apply {
             setOnRefreshListener {
-                presenter.getFavouriteReservationList(this@UserFavouriteOrgActivity)
+                presenter.getFavouriteReservationList(this@UserFavouriteOrgActivity, userId)
             }
         }
 
         binding!!.recyclerView.layoutManager = LinearLayoutManager(this)
         binding!!.recyclerView.adapter = organizationListAdapter
         organizationListAdapter?.setEmptyView(R.layout.base_loading_view)
-        presenter.getFavouriteReservationList(this)
+        presenter.getFavouriteReservationList(this@UserFavouriteOrgActivity, userId)
     }
 
     private fun initAdapter() {
@@ -180,14 +183,12 @@ class UserFavouriteOrgActivity : BaseActivity<IFavouriteReservationListView, Fav
     }
 
     override fun getFavouriteOrganizationListResult(organizationList: List<Organization>?) {
-        Handler().postDelayed({
-            if (organizationList == null)
-                organizationListAdapter?.setEmptyView(R.layout.base_empty_view)
-            else
-                organizationListAdapter?.setNewInstance(organizationList.toMutableList())
+        if (organizationList != null && organizationList.isNotEmpty())
+            organizationListAdapter?.setNewInstance(organizationList.toMutableList())
+        else
+            organizationListAdapter?.setEmptyView(R.layout.base_empty_view)
 
-            binding!!.swipeRefreshLayout.isRefreshing = false;
-        }, 500)
+        binding!!.swipeRefreshLayout.isRefreshing = false;
     }
 
 }

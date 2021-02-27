@@ -2,14 +2,18 @@ package com.yywspace.module_mine.model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.yywspace.module_base.base.BaseResponse
 import com.yywspace.module_base.bean.Organization
 import com.yywspace.module_base.bean.Reservation
+import com.yywspace.module_base.net.ServerUtils
 import kotlin.random.Random
 
 object FavouriteOrganizationModel {
+    fun getFavouriteOrganizationList(userId: Int): LiveData<BaseResponse<List<Organization>>> {
+        return ServerUtils.getCommonApi().getFavouriteOrganizationList(userId)
+    }
 
-    fun getFavouriteOrganizationList(): LiveData<List<Organization>> {
-        val liveData = MutableLiveData<List<Organization>>()
+    fun getLocalFavouriteOrganizationList(): List<Organization> {
         val list: MutableList<Organization> = mutableListOf()
         for (i in 0 until Random.Default.nextInt(5, 9)) {
             list.add(Organization(-1, "河南大学$i", "河南大学-金明校区",
@@ -22,9 +26,8 @@ object FavouriteOrganizationModel {
                             "                建国后的半个世纪，特别是改革开放以来，随着党和国家对高等教育的重视，图书馆也遇到了发展的大好时机。在学校领导的关心和支持下，经过图书馆人的不懈努力，图书馆发生了巨大的变化。\n" +
                             "                图书馆文献资源总量：411万册。图书馆现设有读者服务窗口43个，其中各类阅览室、书库34余个，阅览座位6647席。\n" +
                             "</p>\n",
-                    "",100, Random.Default.nextInt(10, 100), Random.Default.nextBoolean()))
+                    "", 100, Random.Default.nextInt(10, 100), Random.Default.nextBoolean()))
         }
-        liveData.value = list
-        return liveData
+        return list
     }
 }

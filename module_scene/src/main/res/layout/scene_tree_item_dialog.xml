@@ -31,4 +31,13 @@
         android:padding="10dp"
         android:text="@string/scene_child_add_label"
         android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/scene_child_multi_add"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:text="@string/scene_child_multi_add_label"
+        android:textSize="18sp" />
 </LinearLayout>

@@ -30,7 +30,7 @@ class SeatListPresenter : BasePresenter<ISeatListView>() {
     fun reserveSeat(reservation: Reservation, owner: LifecycleOwner) {
         SeatModel.insertReservation(reservation).observe(owner, Observer {
             Reservation.runningReservation = reservation
-            view.reserveSeat(it)
+            view.reserveSeatResult(it)
         })
     }
 }
