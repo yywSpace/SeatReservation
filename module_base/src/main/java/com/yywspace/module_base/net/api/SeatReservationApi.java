@@ -9,6 +9,8 @@ import com.yywspace.module_base.bean.User;
 import com.yywspace.module_base.bean.scene.Floor;
 import com.yywspace.module_base.bean.scene.Room;
 import com.yywspace.module_base.bean.scene.Seat;
+import com.yywspace.module_base.bean.statistic.StatisticOverview;
+import com.yywspace.module_base.bean.statistic.StatisticReservation;
 
 
 import java.util.List;
@@ -114,4 +116,9 @@ public interface SeatReservationApi {
     @Headers({"contentType: multipart/form-data"})
     LiveData<BaseResponse<String>> uploadFile(@Part List<MultipartBody.Part> partList);
 
+    @GET("/statistic/overview/{userId}")
+    LiveData<BaseResponse<StatisticOverview>> getStatisticOverview(@Path("userId") int userId);
+
+    @GET("/statistic/reservation/{userId}")
+    LiveData<BaseResponse<List<StatisticReservation>>> getStatisticReservation(@Path("userId") int userId);
 }

@@ -15,8 +15,12 @@ import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.color.ColorPalette
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.Description
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.yywspace.module_base.base.BaseActivity
 import com.yywspace.module_base.util.LogUtils
 import com.yywspace.module_base.util.ViewScreenShotUtils
@@ -25,10 +29,10 @@ import com.yywspace.module_mine.databinding.MineUserInfoStatisticAnalysisBinding
 import com.yywspace.module_mine.iview.IStatisticView
 import com.yywspace.module_mine.presenter.StatisticPresenter
 import com.yywspace.module_mine.user.adapter.UserInfPieChartItemListAdapter
-import com.yywspace.module_mine.user.statistic.StatisticLineData
-import com.yywspace.module_mine.user.statistic.StatisticOverview
-import com.yywspace.module_mine.user.statistic.StatisticPieData
-import java.io.ByteArrayOutputStream
+import com.yywspace.module_base.bean.statistic.StatisticReservation
+import com.yywspace.module_base.bean.statistic.StatisticOverview
+import com.yywspace.module_base.bean.statistic.StatisticOrganization
+import com.yywspace.module_base.util.TimeUtils
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -146,25 +150,36 @@ class UserInfoStatisticAnalysisActivity : BaseActivity<IStatisticView, Statistic
             layoutManager = LinearLayoutManager(context)
             adapter = pieItemListAdapter
         }
-        presenter.getStatisticLineDataList(this)
+        presenter.getStatisticLineDataList(this, userId)
         presenter.getStatisticPieDataList(this)
-        presenter.getStatisticOverview(this)
+        presenter.getStatisticOverview(this, userId)
 
     }
 
-    override fun getStatisticLineDataListResult(lineDataList: List<StatisticLineData>?) {
-        if (lineDataList != null) {
+    override fun getStatisticLineDataListResult(reservationInfoList: List<StatisticReservation>?) {
+        if (reservationInfoList != null) {
             val entries = mutableListOf<Entry>()
-            for (data in lineDataList)
-                entries.add(Entry(data.day.toFloat(), data.time.toFloat()))
+            val xLabel = mutableListOf<String>()
+            for ((index, data) in reservationInfoList.withIndex()) {
+                entries.add(Entry(index.toFloat(), data.time / 1000 / 60f))
+                xLabel.add(TimeUtils.longToString(data.day, "MM-dd"))
+            }
             val dataSet = LineDataSet(entries, "时间"); // add entries to dataset
             val lineData = LineData(dataSet)
             binding.lineChart.data = lineData
+            binding.lineChart.xAxis.apply {
+                position = XAxis.XAxisPosition.BOTTOM
+                valueFormatter = object : ValueFormatter() {
+                    override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+                        return xLabel[value.toInt()]
+                    }
+                }
+            }
             binding.lineChart.invalidate()
         }
     }
 
-    override fun getStatisticPieDataListResult(pieDataList: List<StatisticPieData>?) {
+    override fun getStatisticPieDataListResult(pieDataList: List<StatisticOrganization>?) {
         val pieEntries: MutableList<PieEntry> = ArrayList()
         if (pieDataList != null) {
             for (data in pieDataList.stream().limit(5))
@@ -183,8 +198,8 @@ class UserInfoStatisticAnalysisActivity : BaseActivity<IStatisticView, Statistic
         if (statisticOverview == null)
             return
         binding.mineStatisticReservationTimes.text = statisticOverview.reservationTimes.toString()
-        binding.mineStatisticBreachTimes.text = statisticOverview.breach.toString()
-        binding.mineStatisticStudyTime.text = "${statisticOverview.studyTime / 60 / 60}时${statisticOverview.studyTime / 60 % 60}分"
-        binding.mineStatisticStudyTimePerDay.text = "${statisticOverview.studyTimePerDay / 60 / 60}时${statisticOverview.studyTimePerDay / 60 % 60}分"
+        binding.mineStatisticBreachTimes.text = statisticOverview.breachTimes.toString()
+        binding.mineStatisticStudyTime.text = "${statisticOverview.studyTime / 1000 / 60 / 60}时${statisticOverview.studyTime / 1000 / 60 % 60}分"
+        binding.mineStatisticStudyTimePerDay.text = "${statisticOverview.studyTimeAverage / 1000 / 60 / 60}时${statisticOverview.studyTimeAverage / 1000 / 60 % 60}分"
     }
 }

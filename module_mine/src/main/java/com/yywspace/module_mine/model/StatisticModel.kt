@@ -2,38 +2,41 @@ package com.yywspace.module_mine.model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.github.mikephil.charting.data.Entry
-import com.yywspace.module_base.bean.Reservation
-import com.yywspace.module_base.bean.User
-import com.yywspace.module_mine.user.statistic.StatisticLineData
-import com.yywspace.module_mine.user.statistic.StatisticOverview
-import com.yywspace.module_mine.user.statistic.StatisticPieData
+import com.yywspace.module_base.base.BaseResponse
+import com.yywspace.module_base.bean.statistic.StatisticReservation
+import com.yywspace.module_base.bean.statistic.StatisticOverview
+import com.yywspace.module_base.bean.statistic.StatisticOrganization
+import com.yywspace.module_base.net.ServerUtils
 import kotlin.random.Random
 
 object StatisticModel {
-    fun getStatisticLineDataList(): LiveData<List<StatisticLineData>?> {
-        val liveData = MutableLiveData<List<StatisticLineData>?>()
-        val list = mutableListOf<StatisticLineData>()
+    fun getStatisticLineDataList(userId: Int):LiveData<BaseResponse<List<StatisticReservation>>> {
+        return ServerUtils.getCommonApi().getStatisticReservation(userId)
+    }
+
+    fun getLocalStatisticLineDataList(): List<StatisticReservation> {
+        val list = mutableListOf<StatisticReservation>()
         for (i in 0 until 100) {
-            list.add(StatisticLineData(i, Random.nextLong(100)))
+            list.add(StatisticReservation(i.toLong(), Random.nextLong(100)))
         }
-        liveData.value = list
-        return liveData
+        return list
     }
 
-    fun getStatisticPieDataList(): LiveData<List<StatisticPieData>?> {
-        val liveData = MutableLiveData<List<StatisticPieData>?>()
-        val list = mutableListOf<StatisticPieData>()
+    fun getStatisticPieDataList(): LiveData<List<StatisticOrganization>?> {
+        val liveData = MutableLiveData<List<StatisticOrganization>?>()
+        val list = mutableListOf<StatisticOrganization>()
         for (i in 0 until 10) {
-            list.add(StatisticPieData("Org$i", 10, .1f, ""))
+            list.add(StatisticOrganization("Org$i", 10, .1f, ""))
         }
         liveData.value = list
         return liveData
     }
 
-    fun getStatisticOverview(): LiveData<StatisticOverview?> {
-        val liveData = MutableLiveData<StatisticOverview?>()
-        liveData.value = StatisticOverview(10, 4, 10000, 3000)
-        return liveData
+    fun getLocalStatisticOverview(): StatisticOverview {
+        return StatisticOverview(10, 4, 10000, 3000)
+    }
+
+    fun getStatisticOverview(userId: Int): LiveData<BaseResponse<StatisticOverview>> {
+        return ServerUtils.getCommonApi().getStatisticOverview(userId)
     }
 }

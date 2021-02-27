@@ -3,18 +3,19 @@ package com.yywspace.module_mine.presenter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.yywspace.module_base.base.BasePresenter
+import com.yywspace.module_base.model.OrganizationModel
 import com.yywspace.module_mine.iview.IStatisticView
-import com.yywspace.module_mine.iview.IUserInfoView
 import com.yywspace.module_mine.model.StatisticModel
-import com.yywspace.module_mine.model.UserInfoModel
-import com.yywspace.module_mine.user.statistic.StatisticLineData
-import com.yywspace.module_mine.user.statistic.StatisticPieData
 
 class StatisticPresenter : BasePresenter<IStatisticView>() {
 
-    fun getStatisticLineDataList(owner: LifecycleOwner) {
-        StatisticModel.getStatisticLineDataList().observe(owner, Observer {
-            view.getStatisticLineDataListResult(it)
+    fun getStatisticLineDataList(owner: LifecycleOwner, userId: Int) {
+        StatisticModel.getStatisticLineDataList(userId).observe(owner, Observer {
+            if (it == null || it.data == null) {
+                view.getStatisticLineDataListResult(StatisticModel.getLocalStatisticLineDataList())
+                return@Observer
+            }
+            view.getStatisticLineDataListResult(it.data)
         })
     }
 
@@ -24,9 +25,13 @@ class StatisticPresenter : BasePresenter<IStatisticView>() {
         })
     }
 
-    fun getStatisticOverview(owner: LifecycleOwner) {
-        StatisticModel.getStatisticOverview().observe(owner, Observer {
-            view.getStatisticOverviewResult(it)
+    fun getStatisticOverview(owner: LifecycleOwner, userId: Int) {
+        StatisticModel.getStatisticOverview(userId).observe(owner, Observer {
+            if (it == null || it.data == null) {
+                view.getStatisticOverviewResult(StatisticModel.getLocalStatisticOverview())
+                return@Observer
+            }
+            view.getStatisticOverviewResult(it.data)
         })
     }
 }

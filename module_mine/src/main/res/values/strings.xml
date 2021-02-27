@@ -15,7 +15,7 @@
     <string name="mine_statistic_reservation_times_label">预约次数</string>
     <string name="mine_statistic_breach_times_label">违约次数</string>
     <string name="mine_statistic_study_times_label">自习时长</string>
-    <string name="mine_statistic_study_times_per_day_label">日平均时长</string>
+    <string name="mine_statistic_study_times_average_label">平均时长</string>
     <string name="mine_org_time_analysis_label">机构时间统计</string>
     <string name="mine_study_time_label">自习时间</string>
     <string name="mine_statistic_menu_share">分享</string>
