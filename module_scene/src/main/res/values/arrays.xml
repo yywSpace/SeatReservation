@@ -4,5 +4,9 @@
         <item>激活</item>
         <item>禁止</item>
     </string-array>
-
+    <string-array name="scene_seat_status_array">
+        <item>空闲</item>
+        <item>繁忙</item>
+        <item>禁用</item>
+    </string-array>
 </resources>

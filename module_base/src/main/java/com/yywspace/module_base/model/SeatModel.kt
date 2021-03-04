@@ -19,10 +19,31 @@ object SeatModel {
     fun getLocalSeatList(): List<Seat> {
         val list: MutableList<Seat> = mutableListOf()
         for (i in 0 until Random.Default.nextInt(5, 9)) {
-            list.add(Seat(-1,"seat$i", "正常", "天生我材必有用，千金散尽还复来。", Random.nextInt(2)))
+            list.add(Seat(-1, -1, "seat$i", "正常", "天生我材必有用，千金散尽还复来。", Random.nextInt(2)))
         }
         return list
     }
+
+    fun insertSeat(seat: Seat): LiveData<BaseResponse<Int>> {
+        val body: RequestBody = JsonUtils.getGson().toJson(seat)
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        return ServerUtils.getCommonApi().insertSeat(body)
+    }
+
+    fun updateSeat(seat: Seat): LiveData<BaseResponse<Any>> {
+        val body: RequestBody = JsonUtils.getGson().toJson(seat)
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        return ServerUtils.getCommonApi().updateSeat(body)
+    }
+
+    fun changeSeatStatus(seatId: Int, status: Int): LiveData<BaseResponse<Any>> {
+        return ServerUtils.getCommonApi().changeSeatStatus(seatId, status)
+    }
+
+    fun deleteSeat(seatId: Int): LiveData<BaseResponse<Any>> {
+        return ServerUtils.getCommonApi().deleteSeat(seatId)
+    }
+
 
     fun insertReservation(reservation: Reservation): LiveData<BaseResponse<Any>> {
         val body: RequestBody = JsonUtils.getGson().toJson(reservation)

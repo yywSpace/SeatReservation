@@ -59,7 +59,7 @@ public class TimerView extends View {
 
 
     private OnTimerStopListener mOnTimerStopListener;
-
+    public static OnTimeCountDownListener mOnTimeCountDownListener;
     // 内部初始时间
     private int timeInitial = 0;
     private final TimerHandler handler;
@@ -247,6 +247,10 @@ public class TimerView extends View {
         return radian * 180 / Math.PI;
     }
 
+    public void setOnTimeCountDownListener(OnTimeCountDownListener onTimeCountDownListener) {
+        mOnTimeCountDownListener = onTimeCountDownListener;
+    }
+
     public enum Mode {
         /**
          * 从某一时间递减记时
@@ -259,6 +263,7 @@ public class TimerView extends View {
     }
 
     static class TimerHandler extends Handler {
+        int count = 0;
         private final WeakReference<TimerView> mTimerViewWeakReference;
 
         public TimerHandler(TimerView timerView) {
@@ -269,6 +274,8 @@ public class TimerView extends View {
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             mTimerViewWeakReference.get().invalidate();
+            if (mOnTimeCountDownListener != null)
+                mOnTimeCountDownListener.onTimeCountDown(count++);
         }
     }
 
@@ -382,5 +389,17 @@ public class TimerView extends View {
 
     public void setOnTimerStopListener(OnTimerStopListener onTimerStopListener) {
         mOnTimerStopListener = onTimerStopListener;
+    }
+
+    public OnTimerStopListener getOnTimerStopListener() {
+        return mOnTimerStopListener;
+    }
+
+    public OnTimeCountDownListener getOnTimeCountDownListener() {
+        return mOnTimeCountDownListener;
+    }
+
+    public interface OnTimeCountDownListener {
+        void onTimeCountDown(long time);
     }
 }

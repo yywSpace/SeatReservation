@@ -102,7 +102,7 @@ class UserInfoReservationListActivity : BaseActivity<IReservationListView, Reser
                     val binding = MineUserInfoReservationItemDialogBinding.bind(getCustomView())
                     binding.mineReservationEndTime.text = TimeUtils.longToString(reservation.endTime, TimeUtils.formatPattern)
                     binding.mineReservationStartTime.text = TimeUtils.longToString(reservation.startTime, TimeUtils.formatPattern)
-                    binding.mineReservationOrg.text = reservation.location
+                    binding.mineReservationOrg.text = reservation.location.split("-")[0]
                     binding.mineReservationOrgLoc.text = reservation.location
                     binding.mineReservationSeat.text = reservation.seatName
                     binding.mineReservationStatus.text = when (reservation.status) {

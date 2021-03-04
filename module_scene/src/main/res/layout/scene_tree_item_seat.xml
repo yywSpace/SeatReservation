@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginBottom="1dp">
+
+    <ImageView
+        android:id="@+id/ic_seat_icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/ic_seat_green" />
+
+    <TextView
+        android:id="@+id/seat_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/ic_seat_icon"
+        tools:ignore="RelativeOverlap"
+        tools:text="座位" />
+
+    <ImageView
+        android:id="@+id/ic_seat_status_icon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        tools:background="@drawable/ic_seat_status_empty" />
+</RelativeLayout>

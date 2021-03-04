@@ -22,4 +22,6 @@ class Organization(
 ) : Parcelable, BaseExpandNode() {
     @IgnoredOnParcel
     override val childNode: MutableList<BaseNode> = mutableListOf()
+
+    constructor() : this(-1,"","","","",0,0)
 }

@@ -10,7 +10,7 @@ import com.yywspace.module_base.net.ServerUtils
 import kotlin.random.Random
 
 object StatisticModel {
-    fun getStatisticLineDataList(userId: Int):LiveData<BaseResponse<List<StatisticReservation>>> {
+    fun getStatisticLineDataList(userId: Int): LiveData<BaseResponse<List<StatisticReservation>>> {
         return ServerUtils.getCommonApi().getStatisticReservation(userId)
     }
 
@@ -22,14 +22,17 @@ object StatisticModel {
         return list
     }
 
-    fun getStatisticPieDataList(): LiveData<List<StatisticOrganization>?> {
-        val liveData = MutableLiveData<List<StatisticOrganization>?>()
+    fun getStatisticPieDataList(userId: Int, limit: Int): LiveData<BaseResponse<List<StatisticOrganization>>> {
+        return ServerUtils.getCommonApi().getStatisticOrganization(userId, limit)
+    }
+
+
+    fun getLocalStatisticPieDataList(): List<StatisticOrganization> {
         val list = mutableListOf<StatisticOrganization>()
         for (i in 0 until 10) {
             list.add(StatisticOrganization("Org$i", 10, .1f, ""))
         }
-        liveData.value = list
-        return liveData
+        return list
     }
 
     fun getLocalStatisticOverview(): StatisticOverview {

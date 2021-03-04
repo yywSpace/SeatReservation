@@ -151,9 +151,8 @@ class UserInfoStatisticAnalysisActivity : BaseActivity<IStatisticView, Statistic
             adapter = pieItemListAdapter
         }
         presenter.getStatisticLineDataList(this, userId)
-        presenter.getStatisticPieDataList(this)
+        presenter.getStatisticPieDataList(this, userId, 5)
         presenter.getStatisticOverview(this, userId)
-
     }
 
     override fun getStatisticLineDataListResult(reservationInfoList: List<StatisticReservation>?) {
@@ -164,7 +163,7 @@ class UserInfoStatisticAnalysisActivity : BaseActivity<IStatisticView, Statistic
                 entries.add(Entry(index.toFloat(), data.time / 1000 / 60f))
                 xLabel.add(TimeUtils.longToString(data.day, "MM-dd"))
             }
-            val dataSet = LineDataSet(entries, "时间"); // add entries to dataset
+            val dataSet = LineDataSet(entries, "时间")
             val lineData = LineData(dataSet)
             binding.lineChart.data = lineData
             binding.lineChart.xAxis.apply {
@@ -182,8 +181,12 @@ class UserInfoStatisticAnalysisActivity : BaseActivity<IStatisticView, Statistic
     override fun getStatisticPieDataListResult(pieDataList: List<StatisticOrganization>?) {
         val pieEntries: MutableList<PieEntry> = ArrayList()
         if (pieDataList != null) {
-            for (data in pieDataList.stream().limit(5))
-                pieEntries.add(PieEntry(data.time.toFloat(), data.orgName))
+            val totalTime = pieDataList.stream().mapToLong { it.time }.sum()
+            for (data in pieDataList) {
+                data.timeRatio = data.time / totalTime.toFloat()
+                LogUtils.d("${data.time}   ${data.orgName}  ${data.timeRatio} ")
+                pieEntries.add(PieEntry(data.timeRatio, data.orgName))
+            }
             val pieSet = PieDataSet(pieEntries, "机构")
             pieSet.setColors(*ColorPalette.Primary)
             val pieData = PieData(pieSet)

@@ -90,7 +90,8 @@ class OrganizationProvider(private val activity: AppCompatActivity) : BaseNodePr
                 input(allowEmpty = false, inputType = InputType.TYPE_CLASS_NUMBER) { dialog, text ->
                     val num = text.toString().toInt()
                     for (i in 0 until num) {
-                        getAdapter()?.nodeAddData(data, Floor(-1, org.id, "请修改楼层信息$i", 0, 0))
+                        val floor = Floor(-1, org.id, "请修改楼层信息", 0, 0)
+                        presenter.insertFloor(activity, floor, data)
                     }
                     optionMenuDialog.dismiss()
                 }

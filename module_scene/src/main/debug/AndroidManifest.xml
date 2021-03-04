@@ -38,6 +38,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SceneActivity" />
+        <activity android:name=".SceneSeatListActivity"  android:parentActivityName=".SceneMainActivity" />
     </application>
 
 </manifest>

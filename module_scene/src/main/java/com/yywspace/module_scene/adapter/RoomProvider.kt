@@ -1,6 +1,7 @@
 package com.yywspace.module_scene.adapter
 
 import android.app.Activity
+import android.content.Intent
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -20,14 +21,16 @@ import com.luck.picture.lib.listener.OnResultCallbackListener
 import com.yywspace.module_base.AppConfig
 import com.yywspace.module_base.GlideEngine
 import com.yywspace.module_base.base.BaseResponse
+import com.yywspace.module_base.bean.scene.Floor
 import com.yywspace.module_base.bean.scene.Room
 import com.yywspace.module_scene.R
+import com.yywspace.module_scene.SceneSeatListActivity
 import com.yywspace.module_scene.databinding.SceneShapeRoomInfoBinding
 import com.yywspace.module_scene.iview.IRoomProviderView
 import com.yywspace.module_scene.presenter.RoomProviderPresenter
 import org.jetbrains.annotations.NotNull
 
-class RoomProvider(private val activity:AppCompatActivity) : BaseNodeProvider(), IRoomProviderView {
+class RoomProvider(private val activity: AppCompatActivity) : BaseNodeProvider(), IRoomProviderView {
     private val presenter: RoomProviderPresenter = RoomProviderPresenter()
 
     override val itemViewType: Int
@@ -68,7 +71,10 @@ class RoomProvider(private val activity:AppCompatActivity) : BaseNodeProvider(),
     }
 
     override fun onClick(helper: BaseViewHolder, view: View, data: BaseNode, position: Int) {
-
+        val room = data as Room
+        val intent = Intent(context, SceneSeatListActivity::class.java)
+        intent.putExtra("room_id", room.id)
+        activity.startActivity(intent)
     }
 
     private fun showRoomEditDialog(data: BaseNode, position: Int) {

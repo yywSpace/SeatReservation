@@ -30,6 +30,7 @@
             tools:text="机构收藏" />
 
         <TextView
+            android:textColor="@android:color/holo_blue_light"
             android:id="@+id/mine_org_time_radio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

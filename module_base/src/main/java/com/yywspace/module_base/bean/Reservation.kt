@@ -8,8 +8,9 @@ data class Reservation(
         var startTime: Long,
         var endTime: Long,
         var location: String,
-        var status: Int) {
-    // 0 running 1 success 2 fal
+        var status: Int,
+        var statusTime: Long) { // 用于各种状态的记时
+    // 0 running 1 success 2 fal 3 签到 4 暂离
     companion object {
         var runningReservation: Reservation? = null
     }

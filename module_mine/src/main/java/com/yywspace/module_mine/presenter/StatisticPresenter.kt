@@ -19,9 +19,13 @@ class StatisticPresenter : BasePresenter<IStatisticView>() {
         })
     }
 
-    fun getStatisticPieDataList(owner: LifecycleOwner) {
-        StatisticModel.getStatisticPieDataList().observe(owner, Observer {
-            view.getStatisticPieDataListResult(it)
+    fun getStatisticPieDataList(owner: LifecycleOwner, userId: Int, limit: Int) {
+        StatisticModel.getStatisticPieDataList(userId, limit).observe(owner, Observer {
+            if (it == null || it.data == null) {
+                view.getStatisticPieDataListResult(StatisticModel.getLocalStatisticPieDataList())
+                return@Observer
+            }
+            view.getStatisticPieDataListResult(it.data)
         })
     }
 

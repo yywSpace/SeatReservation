@@ -189,9 +189,12 @@ class ReserveFragment : BaseFragment<IOrganizationListView, OrganizationListPres
                     R.id.reserve_collect -> {
                         val item = adapter.data[position] as Organization
                         adapter.setData(position, item.apply { isFavourite = !isFavourite })
-                        presenter.makeOrganizationFavourite(
-                                this@ReserveFragment,
-                                item.id, 1, item.isFavourite)
+                        val userId = if(User.currentUser == null) 1 else User.currentUser!!.id
+                        if (userId != null) {
+                            presenter.makeOrganizationFavourite(
+                                    this@ReserveFragment,
+                                    item.id, userId, item.isFavourite)
+                        }
                     }
                 }
             }

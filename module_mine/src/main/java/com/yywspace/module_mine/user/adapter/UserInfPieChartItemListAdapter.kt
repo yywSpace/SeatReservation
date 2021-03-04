@@ -13,7 +13,7 @@ class UserInfPieChartItemListAdapter : BaseQuickAdapter<StatisticOrganization, B
      */
     override fun convert(holder: BaseViewHolder, item: StatisticOrganization) {
         holder.setText(R.id.mine_org_name, item.orgName)
-        holder.setText(R.id.mine_org_time_radio, "${item.timeRatio * 100}%")
+        holder.setText(R.id.mine_org_time_radio, String.format("%.2f%%",item.timeRatio * 100))
         holder.itemView.findViewById<ProgressBar>(R.id.mine_org_time_radio_progressbar)
                 .progress = (item.timeRatio * 100).toInt()
         holder.setImageResource(R.id.mine_org_icon, R.drawable.ic_org)

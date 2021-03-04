@@ -165,10 +165,10 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
                         Toast.makeText(this@RoomDetailActivity, "当前已有预订", Toast.LENGTH_SHORT).show();
                         return@positiveButton
                     }
-                    val userId = if (User.currentUser == null) 2 else User.currentUser!!.id
+                    val userId = if (User.currentUser == null) 1 else User.currentUser!!.id
                     val location = intent.getStringExtra("location")
-                    presenter.reserveSeat(Reservation(-1, userId!!, seat.id, seat.seatName, System.currentTimeMillis(), -1, location
-                            ?: "", 0), this@RoomDetailActivity)
+                    presenter.reserveSeat(Reservation(-1, userId!!, seat.id, seat.seatName, System.currentTimeMillis(), System.currentTimeMillis(), location
+                            ?: "", 0, System.currentTimeMillis()), this@RoomDetailActivity)
                     dismiss()
                 }
             }

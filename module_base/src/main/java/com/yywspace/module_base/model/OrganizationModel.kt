@@ -1,6 +1,5 @@
 package com.yywspace.module_base.model
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import com.yywspace.module_base.base.BaseResponse
 import com.yywspace.module_base.bean.Organization
@@ -15,7 +14,7 @@ object OrganizationModel {
     fun makeOrganizationFavourite(organizationId: Int, userId: Int, favouriteStatus: Boolean): LiveData<BaseResponse<Any>> {
         val body = """
           {
-              "organizationId" :$organizationId,
+              "organizationId" : $organizationId,
               "userId": $userId,
               "favouriteStatus" : $favouriteStatus
           } """.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())

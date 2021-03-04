@@ -85,12 +85,13 @@ class FloorProvider(private val activity: AppCompatActivity) : BaseNodeProvider(
                 input(allowEmpty = false, inputType = InputType.TYPE_CLASS_NUMBER) { dialog, text ->
                     val num = text.toString().toInt()
                     for (i in 0 until num) {
-                        getAdapter()?.nodeAddData(data, Room(
+                        val room = Room(
                                 -1,
                                 floor.id,
-                                "请修改房间信息-$i",
-                                "请修改房间描述-$i",
-                                "a-$i", 0, 0))
+                                "请修改房间信息",
+                                "请修改房间描述",
+                                "请修改房间地址", 0, 0)
+                        presenter.insertRoom(activity, room, floor)
                     }
                     optionMenuDialog.dismiss()
                 }

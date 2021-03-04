@@ -1,11 +1,7 @@
 package com.yywspace.module_mine.user.activity
 
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.view.*
-import android.view.animation.BounceInterpolator
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityOptionsCompat
@@ -13,9 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.howshea.roundcornerimageview.RoundCornerImageView
 import com.yywspace.module_base.base.BaseActivity
+import com.yywspace.module_base.base.BaseResponse
 import com.yywspace.module_base.bean.Organization
-import com.yywspace.module_base.bean.Reservation
-import com.yywspace.module_base.bean.User
 import com.yywspace.module_base.path.RouterPath.ORG_DETAIL_PATH
 import com.yywspace.module_mine.R
 import com.yywspace.module_mine.databinding.MineFavourtieOrgActivityBinding
@@ -143,24 +138,22 @@ class UserFavouriteOrgActivity : BaseActivity<IFavouriteReservationListView, Fav
         organizationListAdapter = FavouriteOrganizationListAdapter().apply {
             addChildClickViewIds(R.id.mine_favourite_org_collect)
             setOnItemClickListener { adapter, view, position ->
-                val shareImg = view.findViewById<RoundCornerImageView>(R.id.mine_favourite_organization_image)
-                val compat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        this@UserFavouriteOrgActivity,
-                        shareImg,
-                        getString(R.string.base_organization_transition_name)
-                )
+                val params = Bundle()
+                params.putParcelable("organization", adapter.data[position] as Organization)
                 ARouter.getInstance()
                         .build(ORG_DETAIL_PATH)
-                        .withObject("organization", adapter.data[position] as Organization)
-                        .withOptionsCompat(compat)
-                        .navigation();
+                        .with(params)
+                        .navigation()
             }
             setOnItemChildClickListener { adapter, view, position ->
                 when (view.id) {
                     R.id.mine_favourite_org_collect -> {
-                        Toast.makeText(this@UserFavouriteOrgActivity, "collect$position", Toast.LENGTH_SHORT).show();
                         val item = adapter.data[position] as Organization
+                        Toast.makeText(this@UserFavouriteOrgActivity, "id:${item.id}", Toast.LENGTH_SHORT).show();
                         adapter.setData(position, item.apply { isFavourite = !isFavourite })
+                        presenter.makeOrganizationFavourite(
+                                this@UserFavouriteOrgActivity,
+                                item.id, userId, item.isFavourite)
                     }
                 }
             }
@@ -168,14 +161,23 @@ class UserFavouriteOrgActivity : BaseActivity<IFavouriteReservationListView, Fav
         resultListAdapter = FavouriteOrganizationListAdapter().apply {
             addChildClickViewIds(R.id.mine_favourite_org_collect)
             setOnItemClickListener { adapter, view, position ->
-                Toast.makeText(this@UserFavouriteOrgActivity, "点击子项：$position", Toast.LENGTH_SHORT).show();
+                val params = Bundle()
+                params.putParcelable("organization", adapter.data[position] as Organization)
+                ARouter.getInstance()
+                        .build(ORG_DETAIL_PATH)
+                        .with(params)
+                        .navigation()
             }
             setOnItemChildClickListener { adapter, view, position ->
                 when (view.id) {
                     R.id.mine_favourite_org_collect -> {
-                        Toast.makeText(this@UserFavouriteOrgActivity, "$position", Toast.LENGTH_SHORT).show();
                         val item = adapter.data[position] as Organization
+                        Toast.makeText(this@UserFavouriteOrgActivity, "${item.id}", Toast.LENGTH_SHORT).show();
                         adapter.setData(position, item.apply { isFavourite = !isFavourite })
+
+                        presenter.makeOrganizationFavourite(
+                                this@UserFavouriteOrgActivity,
+                                item.id, userId, item.isFavourite)
                     }
                 }
             }
@@ -189,6 +191,17 @@ class UserFavouriteOrgActivity : BaseActivity<IFavouriteReservationListView, Fav
             organizationListAdapter?.setEmptyView(R.layout.base_empty_view)
 
         binding!!.swipeRefreshLayout.isRefreshing = false;
+    }
+
+    override fun makeOrganizationFavourite(response: BaseResponse<Any>) {
+        when (response.code) {
+            1 -> {
+                Toast.makeText(this, if (response.data == null) "成功" else "${response.data}", Toast.LENGTH_SHORT).show();
+            }
+            else -> {
+                Toast.makeText(this, "操作失败", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }

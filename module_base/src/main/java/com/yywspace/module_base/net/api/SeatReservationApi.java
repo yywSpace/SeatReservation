@@ -9,6 +9,7 @@ import com.yywspace.module_base.bean.User;
 import com.yywspace.module_base.bean.scene.Floor;
 import com.yywspace.module_base.bean.scene.Room;
 import com.yywspace.module_base.bean.scene.Seat;
+import com.yywspace.module_base.bean.statistic.StatisticOrganization;
 import com.yywspace.module_base.bean.statistic.StatisticOverview;
 import com.yywspace.module_base.bean.statistic.StatisticReservation;
 
@@ -98,8 +99,20 @@ public interface SeatReservationApi {
     @GET("/room/list/{floorId}")
     LiveData<BaseResponse<List<Room>>> getRoomList(@Path("floorId") int id);
 
-    @GET("/seats/list/{roomId}")
+    @GET("/seat/list/{roomId}")
     LiveData<BaseResponse<List<Seat>>> getSeatList(@Path("roomId") int roomId);
+
+    @POST("/seat")
+    LiveData<BaseResponse<Integer>> insertSeat(@Body RequestBody requestBody);
+
+    @PUT("/seat")
+    LiveData<BaseResponse<Object>> updateSeat(@Body RequestBody requestBody);
+
+    @DELETE("/seat/{seatId}")
+    LiveData<BaseResponse<Object>> deleteSeat(@Path("seatId") int seatId);
+
+    @PUT("/seat/{seatId}")
+    LiveData<BaseResponse<Object>> changeSeatStatus(@Path("seatId") int seatId, @Query("status") int status);
 
     @GET("/reservation/list/{id}")
     LiveData<BaseResponse<List<Reservation>>> getReservationList(@Path("id") int id);
@@ -107,6 +120,13 @@ public interface SeatReservationApi {
     @POST("/reservation")
     @Headers({"contentType: application/json;charset=UTF-8"})
     LiveData<BaseResponse<Object>> insertReservation(@Body RequestBody requestBody);
+
+    @DELETE("reservation/{reservationId}")
+    @Headers({"contentType: application/json;charset=UTF-8"})
+    LiveData<BaseResponse<Object>> cancelReservation(@Path("reservationId") int reservationId);
+
+    @PUT("/reservation")
+    LiveData<BaseResponse<Object>> updateReservation(@Body RequestBody requestBody);
 
     @GET("/reservation/running/{userId}")
     LiveData<BaseResponse<Reservation>> getRunningReservation(@Path("userId") int userId);
@@ -121,4 +141,7 @@ public interface SeatReservationApi {
 
     @GET("/statistic/reservation/{userId}")
     LiveData<BaseResponse<List<StatisticReservation>>> getStatisticReservation(@Path("userId") int userId);
+
+    @GET("/statistic/organization/{userId}")
+    LiveData<BaseResponse<List<StatisticOrganization>>> getStatisticOrganization(@Path("userId") int userId, @Query("limit") int limit);
 }

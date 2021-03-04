@@ -6,10 +6,13 @@ import com.yywspace.module_base.bean.Organization
 import com.yywspace.module_base.bean.scene.Floor
 import com.yywspace.module_base.bean.scene.Seat
 
-interface ISeatProviderView : BaseViewImp {
-    fun updateSeatResult(response: BaseResponse<Any>)
+interface ISeatListView : BaseViewImp {
 
-    fun deleteSeatResult(response: BaseResponse<Any>)
+    fun getSeatListResult(seatList: List<Seat>?)
 
-    fun insertSeatResult(response: BaseResponse<Any>)
+    fun updateSeatResult(response: BaseResponse<Any>, seat: Seat)
+
+    fun insertSeatResult(response: BaseResponse<Int>, seat: Seat)
+
+    fun deleteSeatResult(response: BaseResponse<Any>, seat: Seat)
 }

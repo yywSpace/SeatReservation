@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.gyf.immersionbar.ImmersionBar
 import com.gyf.immersionbar.components.ImmersionFragment
+import com.yywspace.module_base.bean.Reservation
+import com.yywspace.module_base.net.ServerUtils
 import com.yywspace.module_base.path.RouterPath
 import com.yywspace.module_home.databinding.HomeFragmentMainBinding
 import com.yywspace.module_home.statePattern.ReservationContext
@@ -18,9 +22,29 @@ class HomeFragment : ImmersionFragment(), IReservationView {
     private var binding: HomeFragmentMainBinding? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
         binding = HomeFragmentMainBinding.inflate(inflater)
-        refreshLayout()
+        ServerUtils.getCommonApi().getRunningReservation(1).observe(requireActivity(), Observer {
+            if (it == null || it.data == null) {
+                Toast.makeText(requireContext(), "当前无任何预约", Toast.LENGTH_SHORT).show()
+                refreshLayout()
+                return@Observer
+            }
+            Reservation.runningReservation = it.data
+
+            when (it.data.status) {  // 0 running 1 success 2 fal 3 签到 4 暂离
+                0 -> {
+                    ReservationContext.currentState = ReservationContext.reservationState
+                }
+                3 -> {
+                    ReservationContext.currentState = ReservationContext.signInReservationState
+                }
+                4 -> {
+                    ReservationContext.currentState = ReservationContext.afkReservationState
+                }
+            }
+            refreshLayout()
+        })
         return binding!!.root
     }
 
@@ -36,3 +60,4 @@ class HomeFragment : ImmersionFragment(), IReservationView {
         ReservationContext.handleView(binding!!, requireActivity().layoutInflater, this, requireContext())
     }
 }
+
