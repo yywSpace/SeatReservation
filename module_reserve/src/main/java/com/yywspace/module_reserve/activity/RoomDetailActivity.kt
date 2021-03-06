@@ -22,6 +22,7 @@ import com.yywspace.module_base.bean.Reservation
 import com.yywspace.module_base.bean.User
 import com.yywspace.module_base.bean.scene.Room
 import com.yywspace.module_base.bean.scene.Seat
+import com.yywspace.module_base.util.LogUtils
 import com.yywspace.module_reserve.R
 import com.yywspace.module_reserve.adapter.SeatListAdapter
 import com.yywspace.module_reserve.databinding.ReserveRoomDetailBinding
@@ -167,8 +168,10 @@ class RoomDetailActivity : BaseActivity<ISeatListView, SeatListPresenter>(), ISe
                     }
                     val userId = if (User.currentUser == null) 1 else User.currentUser!!.id
                     val location = intent.getStringExtra("location")
-                    presenter.reserveSeat(Reservation(-1, userId!!, seat.id, seat.seatName, System.currentTimeMillis(), System.currentTimeMillis(), location
-                            ?: "", 0, System.currentTimeMillis()), this@RoomDetailActivity)
+                    val reservation = Reservation(-1, userId!!, seat.id, seat.seatName, System.currentTimeMillis(), System.currentTimeMillis(), location
+                            ?: "", 0, System.currentTimeMillis())
+                    LogUtils.d("reserveSeat: $reservation")
+                    presenter.reserveSeat(reservation, this@RoomDetailActivity)
                     dismiss()
                 }
             }

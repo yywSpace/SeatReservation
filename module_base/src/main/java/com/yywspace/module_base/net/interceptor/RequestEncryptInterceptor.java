@@ -45,6 +45,8 @@ public class RequestEncryptInterceptor implements Interceptor {
         if (!serverPath.startsWith(AppConfig.BASE_URL)) {
             return chain.proceed(request);
         }
+        if (!apiPath.contains("user") && !apiPath.contains("admin"))
+            return chain.proceed(request);
         LogUtils.d("requestData: " + method);
         LogUtils.d("apiPath: " + apiPath);
 

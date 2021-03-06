@@ -1,5 +1,6 @@
 package com.yywspace.module_base.bean
 
+
 data class Reservation(
         var id: Int,
         var userId: Int,
@@ -13,5 +14,6 @@ data class Reservation(
     // 0 running 1 success 2 fal 3 签到 4 暂离
     companion object {
         var runningReservation: Reservation? = null
+        var runningOrganization: Organization? = null
     }
 }

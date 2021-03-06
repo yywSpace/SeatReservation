@@ -31,7 +31,7 @@ import com.yywspace.module_scene.view.RectShape
 import com.yywspace.module_scene.view.Shape
 
 
-@Route(path = RouterPath.SCENE_PATH)
+//@Route(path = RouterPath.SCENE_PATH)
 open class SceneActivity : AppCompatActivity() {
     companion object {
         var shapeCount = 0;

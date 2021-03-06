@@ -30,6 +30,10 @@ public class AdminLoginPre extends LoginPresenter.UserLoginPresenter {
         LogUtils.d(loginUser.getPassword());
         RequestBody body = RequestBody.create(JsonUtils.getGson().toJson(loginUser), MediaType.parse("application/json; charset=utf-8"));
         ServerUtils.getCommonApi().adminLogin(body).observe(owner, userBaseResponse -> {
+            if(userBaseResponse == null) {
+                getView().showError(LoginInput.USERNAME, "用户名错误");
+                return;
+            }
             User user = userBaseResponse.getData();
             if (user != null)
                 LogUtils.d(user.getUsername());

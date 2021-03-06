@@ -1,4 +1,4 @@
-package com.yywspace.module_scene
+package com.yywspace.module_base
 
 import android.app.Dialog
 import android.content.DialogInterface
@@ -22,7 +22,7 @@ class MapLocationSelectDialogFragment : DialogFragment() {
     var marker: Marker? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialogView = layoutInflater.inflate(R.layout.scene_map_popup_window, null, false)
+        val dialogView = layoutInflater.inflate(R.layout.base_map_popup_window, null, false)
         mapView = dialogView.findViewById(R.id.map_view)
         mapView.map.apply {
             isMyLocationEnabled = true // 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。

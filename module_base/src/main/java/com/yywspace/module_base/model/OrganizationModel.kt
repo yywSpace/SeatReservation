@@ -25,6 +25,10 @@ object OrganizationModel {
         return ServerUtils.getCommonApi().getOrganizationListByLocation(location, userId)
     }
 
+    fun getOrganizationBySeatId(seatId: Int): LiveData<BaseResponse<Organization>> {
+        return ServerUtils.getCommonApi().getOrganizationBySeatId(seatId)
+    }
+
     fun getOrganizationListByGroup(group: String): LiveData<BaseResponse<List<Organization>>> {
         return ServerUtils.getCommonApi().getOrganizationListByGroup(group)
     }

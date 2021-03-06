@@ -6,6 +6,7 @@ import com.yywspace.module_base.bean.Reservation
 import com.yywspace.module_base.bean.scene.Seat
 import com.yywspace.module_base.net.ServerUtils
 import com.yywspace.module_base.util.JsonUtils
+import com.yywspace.module_base.util.LogUtils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -44,10 +45,11 @@ object SeatModel {
         return ServerUtils.getCommonApi().deleteSeat(seatId)
     }
 
-
     fun insertReservation(reservation: Reservation): LiveData<BaseResponse<Any>> {
         val body: RequestBody = JsonUtils.getGson().toJson(reservation)
                 .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        LogUtils.d(reservation.toString())
+        LogUtils.d(JsonUtils.getGson().toJson(reservation))
         return ServerUtils.getCommonApi().insertReservation(body)
     }
 }

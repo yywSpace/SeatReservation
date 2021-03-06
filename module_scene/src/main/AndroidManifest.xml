@@ -2,9 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yywspace.module_scene">
 
-    <application
-        android:allowBackup="true">
-        <activity android:name=".SceneActivity"/>
+    <application android:allowBackup="true">
+        <activity android:name=".SceneActivity" />
+        <activity
+            android:name=".SceneSeatListActivity"
+            android:theme="@style/SceneAppTheme" />
     </application>
 
 </manifest>

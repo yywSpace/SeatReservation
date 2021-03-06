@@ -6,8 +6,11 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import com.afollestad.materialdialogs.MaterialDialog
+import com.amap.api.services.core.LatLonPoint
+import com.yywspace.module_base.MapShowDialogFragment
 import com.yywspace.module_base.base.BaseResponse
 import com.yywspace.module_base.bean.Reservation
 import com.yywspace.module_base.util.LogUtils
@@ -38,6 +41,7 @@ class SignInReservationState : IReservationState(), ISignInReservationStateView 
         this.binding = binding
         this.reservationView = reservationView
         val reservation = Reservation.runningReservation!!
+        val organization = Reservation.runningOrganization!!
         LogUtils.d("SignInReservationState")
 
         val titleAnimation: Animation = AnimationUtils.loadAnimation(context, R.anim.home_title_anim)
@@ -47,7 +51,20 @@ class SignInReservationState : IReservationState(), ISignInReservationStateView 
         }
         val timerViewAnimation: Animation = AnimationUtils.loadAnimation(context, R.anim.home_timer_anim)
         binding.homeTimerView.startAnimation(timerViewAnimation)
-
+        binding.homeLocationText.text = Reservation.runningOrganization?.location
+        binding.homeLocationText.setOnClickListener {
+            if (organization.location.isNotEmpty()) {
+                val locationArray = organization.location.split(":")
+                if (locationArray.size > 1) {
+                    val latLonArray = locationArray[1].split(",")
+                    val latLon = LatLonPoint(latLonArray[0].toDouble(), latLonArray[1].toDouble())
+                    MapShowDialogFragment
+                            .newInstance(latLon.latitude, latLon.longitude, organization.name)
+                            .show((context as AppCompatActivity).supportFragmentManager, "map")
+                }
+            }
+        }
+        binding.homeSeatText.text = Reservation.runningReservation?.seatName
 
         binding.homeTimerView.apply {
             if (reservation.endTime > 0)

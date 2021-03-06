@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LifecycleOwner
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
@@ -31,8 +30,8 @@ import com.yywspace.module_base.GlideEngine
 import com.yywspace.module_base.base.BaseResponse
 import com.yywspace.module_base.bean.Organization
 import com.yywspace.module_base.bean.scene.Floor
-import com.yywspace.module_scene.MapLocationSelectDialogFragment
-import com.yywspace.module_scene.MapShowDialogFragment
+import com.yywspace.module_base.MapLocationSelectDialogFragment
+import com.yywspace.module_base.MapShowDialogFragment
 import com.yywspace.module_scene.R
 import com.yywspace.module_scene.databinding.SceneOrgEditDialogBinding
 import com.yywspace.module_scene.iview.IOrganizationProviderView

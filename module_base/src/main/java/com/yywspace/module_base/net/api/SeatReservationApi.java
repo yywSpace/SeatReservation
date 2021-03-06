@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import com.yywspace.module_base.base.BaseResponse;
 import com.yywspace.module_base.bean.Organization;
 import com.yywspace.module_base.bean.Reservation;
+import com.yywspace.module_base.bean.Setting;
 import com.yywspace.module_base.bean.User;
 import com.yywspace.module_base.bean.scene.Floor;
 import com.yywspace.module_base.bean.scene.Room;
@@ -55,6 +56,9 @@ public interface SeatReservationApi {
 
     @GET("/organization/list")
     LiveData<BaseResponse<List<Organization>>> getOrganizationListByLocation(@Query("location") String location, @Query("userId") int userId);
+
+    @GET("/organization")
+    LiveData<BaseResponse<Organization>> getOrganizationBySeatId(@Query("seatId") int seatId);
 
     @GET("/organization/favourites/{userId}")
     LiveData<BaseResponse<List<Organization>>> getFavouriteOrganizationList(@Path("userId") Integer userId);
@@ -118,7 +122,6 @@ public interface SeatReservationApi {
     LiveData<BaseResponse<List<Reservation>>> getReservationList(@Path("id") int id);
 
     @POST("/reservation")
-    @Headers({"contentType: application/json;charset=UTF-8"})
     LiveData<BaseResponse<Object>> insertReservation(@Body RequestBody requestBody);
 
     @DELETE("reservation/{reservationId}")
@@ -144,4 +147,10 @@ public interface SeatReservationApi {
 
     @GET("/statistic/organization/{userId}")
     LiveData<BaseResponse<List<StatisticOrganization>>> getStatisticOrganization(@Path("userId") int userId, @Query("limit") int limit);
+
+    @GET("/setting")
+    LiveData<BaseResponse<Setting>> getSettingByUserName(@Query("userName") String userName);
+
+    @POST("/setting")
+    LiveData<BaseResponse<Object>> insertSetting(@Body RequestBody requestBody);
 }

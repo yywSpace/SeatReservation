@@ -24,6 +24,7 @@ class InitialReservationState : IReservationState() {
             text = "当前没有任何预约"
             startAnimation(titleAnimation)
         }
+
         val timerViewAnimation: Animation = AnimationUtils.loadAnimation(context, R.anim.home_timer_anim)
         binding.homeTimerView.startAnimation(timerViewAnimation)
         binding.homeButtonContainer.removeAllViews()

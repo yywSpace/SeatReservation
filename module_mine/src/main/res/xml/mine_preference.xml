@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="setting_category"
+        app:title="设置">
+
+        <EditTextPreference
+            app:icon="@drawable/ic_time"
+            app:key="reservationTime"
+            app:summary="单位为分钟"
+            app:title="预约倒计时" />
+
+        <EditTextPreference
+            app:icon="@drawable/ic_time"
+            app:key="afkTime"
+            app:summary="单位为分钟"
+            app:title="暂离倒计时" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

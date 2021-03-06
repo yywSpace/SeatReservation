@@ -44,7 +44,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserMainActivity" android:theme="@style/MainTheme" >
+        <activity android:name=".UserMainActivity" android:theme="@style/MainTheme" />
+        <activity android:name=".AdminMainActivity" android:theme="@style/MainTheme" >
 
         </activity>
     </application>

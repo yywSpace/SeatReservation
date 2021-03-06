@@ -43,6 +43,9 @@ class SceneSeatListActivity : BaseActivity<ISeatListView, SeatListPresenter>(), 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            android.R.id.home->{
+                finish()
+            }
             R.id.seat_add -> {
                 presenter.insertSeat(this,
                         Seat(-1, roomId, "请修改座位名称", "正常", "天生我材必有用，千金散尽还复来。", 0))

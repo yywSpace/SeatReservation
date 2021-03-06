@@ -67,7 +67,7 @@ class UserLoginFragment : BaseFragment<IUserLoginView?, UserLoginPresenter?>(), 
         // 跳转界面
         Toast.makeText(mContext, "跳转界面$user", Toast.LENGTH_SHORT).show()
         // 打开界面
-        ARouter.getInstance().build(RouterPath.MAIN_PATH).navigation()
+        ARouter.getInstance().build(RouterPath.USER_MAIN_PATH).navigation()
         requireActivity().finish()
     }
 
